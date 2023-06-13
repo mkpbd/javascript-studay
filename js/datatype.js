@@ -263,3 +263,30 @@ alert(aa); // 2
 //LEFT SHIFT ( << )
 //RIGHT SHIFT ( >> )
 //ZERO-FILL RIGHT SHIFT ( >>> )
+
+//============ Strict equality ===============
+
+alert( 0 == false ); // true
+alert( '' == false ); // true
+
+alert( 0 === false ); // false, because the types are different
+
+// There is also a “strict non-equality” operator !== analogous to != .
+
+
+/// ==================== For a strict equality check ===    =======================
+
+alert( null === undefined ); // false
+
+alert( null > 0 ); // (1) false
+alert( null == 0 ); // (2) false
+alert( null >= 0 ); // (3) true
+
+
+alert( undefined > 0 ); // false (1)
+alert( undefined < 0 ); // false (2)
+alert( undefined == 0 ); // false (3)
+
+
+
+
