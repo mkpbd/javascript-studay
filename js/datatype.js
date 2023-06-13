@@ -219,3 +219,47 @@ a = b = c = 2 + 2;
 alert( a ); // 4
 alert( b ); // 4
 alert( c ); // 4
+
+
+// Remainder % 
+alert( 5 % 2 ); // 1 is a remainder of 5 divided by 2
+alert( 8 % 3 ); // 2 is a remainder of 8 divided by 3
+alert( 6 % 3 ); // 0 is a remainder of 6 divided by 3
+
+
+//=== Exponentiation **
+
+alert( 2 ** 2 ); // 4 (2 * 2)
+alert( 2 ** 3 ); // 8 (2 * 2 * 2)
+alert( 2 ** 4 ); // 16 (2 * 2 * 2 * 2)
+
+alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root, that's maths)
+alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
+
+//============ Increment/decrement ==============
+
+let counter = 2;
+counter++; // works the same as counter = counter + 1, but is shorter
+alert( counter ); // 3
+
+//== Decrement -- decreases a variable by 1: 
+
+let counters = 2;
+counters--; // works the same as counter = counter - 1, but is shorter
+alert( counters ); // 1
+
+
+let counteres = 1;
+let aa = ++counteres; // (*)
+alert(aa); // 2
+
+
+//================== Bitwise operators ==================
+
+// AND ( & )
+// OR ( | )
+// XOR ( ^ )
+//NOT ( ~ )
+//LEFT SHIFT ( << )
+//RIGHT SHIFT ( >> )
+//ZERO-FILL RIGHT SHIFT ( >>> )
