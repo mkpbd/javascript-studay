@@ -140,3 +140,82 @@ alert( Boolean("") ); // false
 
 alert( Boolean("0") ); // true
 alert( Boolean(" ") ); // spaces, also true (any non-empty string is true)
+
+
+
+//===================== ToBoolean – Occurs in logical operations. Can be performed with Boolean(value) . Follows the rules: ===============
+
+
+// == Value                                                                 Becomes…
+        0 , null , undefined , NaN , "",                                      false
+// any other value                                                             true
+
+
+
+
+/// String concatenation, binary + 
+
+
+let ss = "my" + "string";
+alert(ss); // mystring
+
+alert( '1' + 2 ); // "12"
+alert( 2 + '1' ); // "21"
+
+alert(2 + 2 + '1' ); // "41" and not "221"
+
+
+/**
+ * 
+ * String concatenation and conversion is a special feature of the binary plus + . Other arithmetic operators work only with numbers and always convert their operands to numbers.
+ */
+
+alert( 2 - '1' ); // 1
+alert( '6' / '2' ); // 3
+
+// Numeric conversion, unary +
+
+// No effect on numbers
+let xs = 1;
+alert( +xs ); // 1
+let y = -2;
+alert( +y ); // -2
+// Converts non-numbers
+alert( +true ); // 1
+alert( +"" ); // 0
+
+// It actually does the same thing as Number(...) , but is shorter.
+
+
+let apples = "2";
+let oranges = "3";
+alert( apples + oranges ); // "23", the binary plus concatenates strings
+
+//  If we want to treat them as numbers, we need to convert and then sum them:
+
+let appless = "2";
+let orangess = "3";
+// both values converted to numbers before the binary plus
+alert( +appless + +orangess ); // 5
+// the longer variant
+// alert( Number(apples) + Number(oranges) ); // 
+
+
+/* It is possible to chain assignments:
+Chained assignments evaluate from right to left. First, the rightmost expression 2 + 2 is
+evaluated and then assigned to the variables on the left: c , b and a . At the end, all the
+variables share a single value.
+Assignment */
+
+
+
+let xss= 2 * 2 + 1;
+alert( xss ); // 5
+
+// ================= It is possible to chain assignments: ======================
+
+let a, b, c;
+a = b = c = 2 + 2;
+alert( a ); // 4
+alert( b ); // 4
+alert( c ); // 4
