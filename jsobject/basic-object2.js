@@ -155,3 +155,145 @@ alert(user8.sizes === clone8.sizes); // true, same object
 // user and clone share sizes
 user8.sizes.width++; // change a property from one place
 alert(clone8.sizes.width); // 51, see the result from the other one
+
+// Object methods, "this"
+
+// Objects are usually created to represent entities of the real world, like users, orders and so on:
+
+let user211 = {
+  name: "John",
+  age: 30,
+};
+user211.sayHi = function () {
+  alert("Hello!");
+};
+
+// Method shorthand
+
+user211 = {
+  sayHi: function () {
+    alert("Hello");
+  },
+};
+// method shorthand looks better, right?
+user211 = {
+  sayHi() {
+    // same as "sayHi: function()"
+    alert("Hello");
+  },
+};
+
+//========= “this” in methods =
+
+let user111 = {
+  name: "John",
+  age: 30,
+  sayHi() {
+    alert(this.name);
+  },
+};
+user111.sayHi(); // John
+
+/**
+ * Here during the execution of user.sayHi() , the value of this will be user .
+Technically, it’s also possible to access the object without this , by referencing it via the outer
+variable:
+ * 
+ */
+
+let user43 = {
+  name: "John",
+  age: 30,
+  sayHi() {
+    alert(user43.name); // "user" instead of "this"
+  },
+};
+
+// “this” is not bound
+
+// In JavaScript, “this” keyword behaves unlike most other programming languages. It can be used in any function.
+// There’s no syntax error in the code like that:
+
+function sayHi21() {
+  alert(this.name);
+}
+
+//The value of this is evaluated during the run-time, depending on the context. And it can be anything.
+
+let user33 = { name: "John" };
+let admin = { name: "Admin" };
+function sayHi() {
+  alert(this.name);
+}
+// use the same function in two objects
+user33.f = sayHi;
+admin.f = sayHi;
+// these calls have different this
+// "this" inside the function is the object "before the dot"
+user33.f(); // John (this == user)
+admin.f(); // Admin (this == admin)
+admin["f"](); // Admin (dot or square brackets access the method – doesn't matter)
+
+//========== Calling without an object: this == undefined
+
+// We can even call the function without an object at all:
+
+function sayHi44() {
+  alert(this);
+}
+sayHi44(); // undefined
+
+//============= Internals: Reference Type ========
+
+// This section covers an advanced topic, to understand certain edge-cases better.
+
+let user55 = {
+  name: "John",
+  hi() {
+    alert(this.name);
+  },
+  bye() {
+    alert("Bye");
+  },
+};
+
+user55.hi(); // John (the simple call works)
+// now let's call user.hi or user.bye depending on the name
+(user55.name == "John" ? user55.hi : user55.bye)(); // Error!
+
+//======= Arrow functions have no “this”
+
+/**
+ *
+ * Arrow functions are special: they don’t have their “own” this . If we reference this from such a function, it’s taken from the outer “normal” function.
+ *
+ */
+let user66 = {
+  firstName: "Ilya",
+  sayHi() {
+    let arrow = () => alert(this.firstName);
+    arrow();
+  },
+};
+user66.sayHi(); // Ilya
+
+let calculator = {
+  // ... your code ...
+};
+calculator.read();
+alert(calculator.sum());
+alert(calculator.mul());
+
+let ladder = {
+  step: 0,
+  up() {
+    this.step++;
+  },
+  down() {
+    this.step--;
+  },
+  showStep: function () {
+    // shows the current step
+    alert(this.step);
+  },
+};

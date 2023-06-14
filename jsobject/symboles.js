@@ -104,3 +104,18 @@ let sym2 = Symbol.for("id");
 // get name from symbol
 alert(Symbol.keyFor(sym)); // name
 alert(Symbol.keyFor(sym2)); // id
+alert( Symbol.keyFor(Symbol.for("name")) ); // name, global symbol
+alert( Symbol.keyFor(Symbol("name2")) ); // undefined, the argument isn't a global symbol
+
+
+/**
+ * 
+ * There exist many “system” symbols that JavaScript uses internally, and we can use them to
+fine-tune various aspects of our objects.
+They are listed in the specification in the Well-known symbols  table:
+Symbol.hasInstance
+Symbol.isConcatSpreadable
+Symbol.iterator
+Symbol.toPrimitive
+ * 
+ */
