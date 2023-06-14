@@ -79,8 +79,54 @@ let user1 = {
   "likes birds": true, // multiword property name must be quoted
 };
 
-
 let user3 = {
   name: "John",
   age: 30,
 };
+
+/**
+ *
+ *
+ * That is called a “trailing” or “hanging” comma. Makes it easier to add/remove/move around properties, because all lines become alike.
+ *
+ *
+ *  *************** Square brackets *****************
+ *
+ * For multiword properties, the dot access doesn’t work:
+ *
+ * // this would give a syntax error    user.likes birds = true
+ */
+
+let user5 = {};
+// set
+user5["likes birds"] = true;
+// get
+alert(user5["likes birds"]); // true
+// delete
+delete user5["likes birds"];
+
+/**
+ *
+ * Now everything is fine. Please note that the string inside the brackets is properly quoted (any type of quotes will do).
+ * Square brackets also provide a way to obtain the property name as the result of any expression – as opposed to a literal string – like from a variable as follows:
+ *
+ *
+ */
+
+let key = "likes birds";
+// same as user["likes birds"] = true;
+user5[key] = true;
+
+/**
+ *
+ *
+ *
+ */
+let user8 = {
+  name: "John",
+  age: 30,
+};
+let key2 = prompt("What do you want to know about the user?", "name");
+
+// access by variable
+alert(user8[key2]); // John (if enter "name")
