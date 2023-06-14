@@ -297,3 +297,96 @@ let ladder = {
     alert(this.step);
   },
 };
+
+function User777(name) {
+  this.name = name;
+  this.isAdmin = false;
+}
+let user77 = new User777("Jack");
+alert(user77.name); // Jack
+alert(user77.isAdmin); // false
+
+function User88(name) {
+  // this = {}; (implicitly)
+  // add properties to this
+  this.name = name;
+  this.isAdmin = false;
+  // return this; (implicitly)
+}
+
+// new function() { … }
+
+let user81 = new (function () {
+  this.name = "John";
+  this.isAdmin = false;
+  // ...other code for user creation
+  // maybe complex logic and statements
+  // local variables etc
+})();
+
+//========== Constructor mode test: new.target
+
+function User() {
+  alert(new.target);
+}
+// without "new":
+User(); // undefined
+// with "new":
+new User(); // function User { ... }
+
+//============= Return from constructors ==============
+function BigUser() {
+  this.name = "John";
+  return { name: "Godzilla" }; // <-- returns an object
+}
+alert(new BigUser().name); // Godzilla, got that object ^^
+
+function User11(name) {
+  if (!new.target) {
+    // if you run me without new
+    return new User(name); // ...I will add new for you
+  }
+  this.name = name;
+}
+let john = User11("John"); // redirects call to new User
+alert(john.name); // John
+
+//============ And here’s an example with an empty return (or we could place a primitive after it, doesn’t matter):
+
+function SmallUser() {
+  this.name = "John";
+  return; // finishes the execution, returns this
+  // ...
+}
+alert(new SmallUser().name); // John
+
+// Usually constructors don’t have a return statement. Here we mention the special behavior with returning objects mainly for the sake of completeness.
+
+//=============== Omitting parentheses ===============
+//============== By the way, we can omit parentheses after new , if it has no arguments:
+
+let user0 = new User(); // <-- no parentheses
+// same as
+let user13 = new User();
+
+//============ Methods in constructor ==========
+
+// Using constructor functions to create objects gives a great deal of flexibility. The constructor function may have parameters that define how to construct the object, and what to put in it
+
+function User(name) {
+  this.name = name;
+  this.sayHi = function () {
+    alert("My name is: " + this.name);
+  };
+}
+let john2 = new User("John");
+john.sayHi(); // My name is: John
+/*
+    john = {
+    name: "John",
+    sayHi: function() { ... }
+    }
+    */
+
+
+    // There are 6 primitive types: string , number , boolean , symbol , null and undefined .
