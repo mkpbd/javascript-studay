@@ -263,3 +263,69 @@ alert(sum5(1, 2)); // 3
 // let double = function(n) { return n * 2 }
 let double = (n) => n * 2;
 alert(double(3)); // 6
+
+//============ name ================
+
+let agess = prompt("What is your age?", 18);
+let welcome2 = agess < 18 ? () => alert("Hello") : () => alert("Greetings!");
+welcome2(); // ok now
+
+/***
+ *
+ *
+ * Arrow functions may appear unfamiliar and not very readable at first, but that quickly changes as the eyes get used to the structure.
+ * They are very convenient for simple one-line actions, when we’re just too lazy to write many words.
+ *
+ *
+ */
+
+//========================== Multiline arrow functions =========================
+
+/***
+ *
+ *
+ * The examples above took arguments from the left of => and evaluated the right-side expression with them.
+ * Sometimes we need something a little bit more complex, like multiple expressions or
+ * statements. It is also possible, but we should enclose them in curly braces. Then use a normal return within them.
+ *
+ */
+
+let sum6 = (a, b) => {
+  // the curly brace opens a multiline function
+  let result = a + b;
+  return result; // if we use curly braces, use return to get results
+};
+alert(sum6(1, 2)); // 3
+
+//============= function declaration  to convert Arrow function
+
+function ask7(question, yes, no) {
+  if (confirm(question)) yes();
+  else no();
+}
+ask7(
+  "Do you agree?",
+  function () {
+    alert("You agreed.");
+  },
+  function () {
+    alert("You canceled the execution.");
+  }
+);
+
+// arrow function
+
+const ask8 = (question, yes, no) => {
+  if (confirm(question)) yes();
+  else no();
+};
+
+ask8(
+  "Do you agree?",
+  function () {
+    alert("You agreed.");
+  },
+  function () {
+    alert("You canceled the execution.");
+  }
+);
