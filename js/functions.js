@@ -61,7 +61,71 @@ alert(userName); // Bob, the value was modified by the function
  *
  * If a same-named variable is declared inside the function then it shadows the outer one.
  * For instance, in the code below the function uses the local userName . The outer one is ignored:
+ *
+ */
+
+// ==================  Global variables ================
+
+/***
+ * 
+ * Variables declared outside of any function, such as the outer userName in the code
+above, are called global.
+Global variables are visible from any function (unless shadowed by locals).
+It’s a good practice to minimize the use of global variables. Modern code has few or no
+globals. Most variables reside in their functions. Sometimes though, they can be useful to
+store project-level data.
  * 
  */
 
+//=============================== Parameters ========================
 
+/**
+ *
+ *
+ * We can pass arbitrary data to functions using parameters (also called function arguments) .
+ * In the example below, the function has two parameters: from and text .
+ *
+ */
+
+function showMessageParem(from, text) {
+  // arguments: from, text
+  alert(from + ": " + text);
+}
+showMessageParem("Ann", "Hello!"); // Ann: Hello! (*)
+showMessageParem("Ann", "What's up?"); // Ann: What's up? (**)
+
+// Another Exampels
+
+function showMessage3(from, text) {
+  from = "*" + from + "*"; // make "from" look nicer
+  alert(from + ": " + text);
+}
+let from = "Ann";
+showMessage3(from, "Hello"); // *Ann*: Hello
+// the value of "from" is the same, the function modified a local copy
+alert(from); // Ann
+
+//================================= Default values ================
+
+/**
+ *
+ * If a parameter is not provided, then its value becomes undefined .
+ * For instance, the aforementioned function showMessage(from, text) can be called with a single argument:
+ *
+ */
+
+function showMessageDefault(from, text = "no text given hear") {
+  alert(from + ": " + text);
+}
+
+showMessageDefault("kamal ");
+
+// we can pass function in another function  in defualt paramiter
+
+function anotherFunction() {
+  return " No Text are given bellow hear";
+}
+function showMessage(from, text = anotherFunction()) {
+  // anotherFunction() only executed if no text given
+  // its result becomes the value of text
+}
