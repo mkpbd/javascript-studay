@@ -100,3 +100,28 @@ let sum = function (a, b) {
   let result = a + b;
   return result;
 };
+
+// Function expressions can have a name, like sum = function name(a, b) , but that name is only visible inside that function.
+
+//=================== 3. Arrow functions: ===============
+
+// expression at the right side
+let sum = (a, b) => a + b;
+// or multi-line syntax with { ... }, need return here:
+let sum = (a, b) => {
+  // ...
+  return a + b;
+};
+// without arguments
+let sayHi = () => alert("Hello");
+// with a single argument
+let double = (n) => n * 2;
+
+
+/**
+ * 
+ * Functions may have local variables: those declared inside its body. Such variables are only visible inside the function.
+ * Parameters can have default values: function sum(a = 1, b = 2) {...} .
+ * Functions always return something. If there’s no return statement, then the result is undefined .
+ * 
+ */
