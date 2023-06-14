@@ -129,3 +129,81 @@ function showMessage(from, text = anotherFunction()) {
   // anotherFunction() only executed if no text given
   // its result becomes the value of text
 }
+
+//====================== Returning a value ================
+
+/**
+ *
+ * A function can return a value back into the calling code as the result. The simplest example would be a function that sums two values:
+ *
+ *
+ */
+
+function sum(a, b) {
+  return a + b;
+}
+let result = sum(1, 2);
+alert(result); // 3
+
+/**
+ *
+ * The directive return can be in any place of the function. When the execution reaches it, the
+ * function stops, and the value is returned to the calling code (assigned to result above).
+ * There may be many occurrences of return in a single function. For instance:
+ *
+ *
+ */
+
+function checkAge(age) {
+  if (age > 18) {
+    return true;
+  } else {
+    return confirm("Do you have permission from your parents?");
+  }
+}
+
+let ages = prompt("How old are you?", 18);
+if (checkAge(ages)) {
+  alert("Access granted");
+} else {
+  alert("Access denied");
+}
+
+/**
+ *
+ * It is possible to use return without a value. That causes the function to exit immediately. For example
+ *
+ */
+
+function showMovie(age) {
+  if (!checkAge(age)) {
+    return;
+  }
+  alert("Showing you the movie"); // (*)
+  // ...
+}
+
+//=================== A function with an empty return or without it returns undefined ==========
+
+//=== If a function does not return a value, it is the same as if it returns undefined :
+
+function doNothing() {
+  /* empty */
+}
+alert(doNothing() === undefined); // true
+
+//=== An empty return is also the same as return undefined :
+
+function doNothing1() {
+  return;
+}
+alert(doNothing1() === undefined); // true
+
+//======================== Never add a newline between return and the value =======================
+
+// For a long expression in return , it might be tempting to put it on a separate line, like this:
+
+return;
+(some + long + expression + or + whatever * f(a) + f(b));
+
+
