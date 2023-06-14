@@ -225,3 +225,11 @@ alert("blabla" in user11); // false, user.blabla doesn't exist
 
 
 //================= Please note that on the left side of in there must be a property name. That’s usually a quoted string. 
+
+
+
+//============ If we omit quotes, that would mean a variable containing the actual name will be tested. For instance: 
+
+let user111 = { age: 30 };
+let key11 = "age";
+alert( key in user111 ); // true, takes the name from key and checks for such property
