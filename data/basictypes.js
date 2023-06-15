@@ -106,3 +106,61 @@ alert(NaN === NaN); // false
 alert(isFinite("15")); // true
 alert(isFinite("str")); // false, because a special value: NaN
 alert(isFinite(Infinity)); // false, because a special value: Infinity
+
+// ======== Sometimes isFinite is used to validate whether a string value is a regular number:=================
+
+let num3 = +prompt("Enter a number", "");
+// will be true unless you enter Infinity, -Infinity or not a number
+alert(isFinite(num3));
+
+/**
+ *
+ * Please note that an empty or a space-only string is treated as 0 in all numeric functions including isFinite
+ *
+ *
+ */
+
+//====================  Compare with Object.is  ==========================
+
+// There is a special built-in method Object.is  that compares values like === , but is more reliable for two edge cases:
+// It works with NaN : Object.is(NaN, NaN) === true , that’s a good thing
+// Values 0 and -0 are different: Object.is(0, -0) === false , technically that’s true, because internally the number has a sign bit that may be different even if all other bits are zeroes.
+
+// In all other cases, Object.is(a, b) is the same as a === b .
+
+//===================================== parseInt and parseFloat =========================
+//=== Numeric conversion using a plus + or Number() is strict. If a value is not exactly a number, it fails:
+
+alert(+"100px"); // NaN
+
+alert(parseInt("100px")); // 100
+alert(parseFloat("12.5em")); // 12.5
+alert(parseInt("12.3")); // 12, only the integer part is returned
+alert(parseFloat("12.3.4")); // 12.3, the second point stops the reading
+
+//====== There are situations when parseInt/parseFloat will return NaN . It happens when no digits could be read:
+
+alert(parseInt("a123")); // NaN, the first symbol stops the process
+
+//========== The second argument of parseInt(str, radix)
+
+/**
+ *
+ *
+ * The parseInt() function has an optional second parameter. It specifies the base of the numeral system, so parseInt can also parse strings of hex numbers, binary numbers and so on:
+ *
+ *
+ */
+
+alert(parseInt("0xff", 16)); // 255
+alert(parseInt("ff", 16)); // 255, without 0x also works
+alert(parseInt("2n9c", 36)); // 123456
+
+alert(Math.random()); // 0.1234567894322
+alert(Math.random()); // 0.5435252343232
+alert(Math.random()); // ... (any random numbers)
+
+let i = 0;
+while (i != 10) {
+  i += 0.2;
+}
