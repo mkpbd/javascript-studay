@@ -250,3 +250,77 @@ alert(str3[0]); // H
 alert(str3.charAt(0)); // H
 // the last character
 alert(str3[str3.length - 1]); // o
+
+/***
+ *
+ *
+ * The square brackets are a modern way of getting a character, while charAt exists mostly for historical reasons
+ * The only difference between them is that if no character is found, [] returns undefined , and charAt returns an empty string:
+ *
+ */
+
+let str4 = `Hello`;
+alert(str4[1000]); // undefined
+alert(str4.charAt(1000)); // '' (an empty string)
+
+for (let char of "Hello") {
+  alert(char); // H,e,l,l,o (char becomes "H", then "e", then "l" etc)
+}
+
+//======================= Strings are immutable =====================
+
+// Strings can’t be changed in JavaScript. It is impossible to change a character. Let’s try it to show that it doesn’t work:
+
+let str6 = "Hi";
+str6[0] = "h"; // error
+alert(str6[0]); // doesn't work
+
+//============= Searching for a substring ==============
+
+// There are multiple ways to look for a substring within a string.
+
+//str.indexOf
+
+let str11 = "Widget with id";
+alert(str11.indexOf("Widget")); // 0, because 'Widget' is found at the beginning
+alert(str11.indexOf("widget")); // -1, not found, the search is case-sensitive
+alert(str11.indexOf("id")); // 1, "id" is found at the position 1 (..idget with id)
+
+//============== The optional second parameter allows us to search starting from the given position. =====
+
+//========== let str = 'Widget with id';
+alert(str.indexOf("id", 2)); // 12
+
+//=========== If we’re interested in all occurrences, we can run indexOf in a loop. Every new call is made with the position after the previous match:
+
+let str12 = "As sly as a fox, as strong as an ox";
+let target = "as"; // let's look for it
+let pos = 0;
+while (true) {
+  let foundPos = str12.indexOf(target, pos);
+  if (foundPos == -1) break;
+  alert(`Found at ${foundPos}`);
+  pos = foundPos + 1; // continue the search from the next position
+}
+
+let str21 = "As sly as a fox, as strong as an ox";
+let target21 = "as";
+let pos21 = -1;
+while ((pos21 = str21.indexOf(target, pos21 + 1)) != -1) {
+  alert(pos21);
+}
+
+
+//============== includes, startsWith, endsWith ====================
+
+// The more modern method str.includes(substr, pos)  returns true/false depending on
+// whether str contains substr within.
+
+
+alert( "Widget with id".includes("Widget") ); // true
+alert( "Hello".includes("Bye") ); // false
+
+// The optional second argument of str.includes is the position to start searching from:
+
+alert( "Midget".includes("id") ); // true
+alert( "Midget".includes("id", 3) ); // false, from position 3 there is no "id"
