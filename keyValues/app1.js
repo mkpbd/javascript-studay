@@ -277,3 +277,9 @@ let options = {
     alert(title); // Menu
     alert(width); // 100
     alert(height); // 200
+
+
+    // Properties options.title , options.width and options.height are assigned to the  corresponding variables. The order does not matter. This works too: 
+
+    // changed the order in let {...}
+let {height2, width2, title2} = { title: "Menu", height: 200, width: 100 }
