@@ -163,5 +163,87 @@ for (let key in arr21) {
   alert(arr21[key]); // Apple, Orange, Pear
 }
 
-
 //========================= new Array() =========================
+
+let arrNew = new Array("Apple", "Pear", "etc");
+/**
+ * It’s rarely used, because square brackets [] are shorter. Also there’s a tricky feature with it.
+If new Array is called with a single argument which is a number, then it creates an array
+without items, but with the given length.
+ * 
+ */
+
+let arr33 = new Array(2); // will it create an array of [2] ?
+alert(arr33[0]); // undefined! no elements.
+alert(arr33.length); // length 2
+
+//============= Multidimensional arrays ===========
+
+/**
+ *
+ * Arrays can have items that are also arrays. We can use it for multidimensional arrays, for example to store matrices:
+ *
+ */
+
+let matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+alert(matrix[1][1]); // the central element
+
+//============== toString ==============
+
+/**
+ *
+ * Arrays have their own implementation of toString method that returns a comma-separated list of elements.
+ *
+ */
+
+let arr6 = [1, 2, 3];
+alert(arr6); // 1,2,3
+alert(String(arr6) === "1,2,3"); // true
+
+//============== Also, let’s try this: ====
+
+alert([] + 1); // "1"
+alert([1] + 1); // "11"
+alert([1, 2] + 1); // "1,21"
+
+/**
+ *
+ *
+ * Array is a special kind of object, suited to storing and managing ordered data items. The declaration:
+ *
+ */
+
+// square brackets (usual)
+let arr22 = [item1, item2];
+// new Array (exceptionally rare)
+let arr222 = new Array(item1, item222);
+
+/**
+ *
+ * To loop over the elements of the array:
+ * for (let i=0; i<arr.length; i++) – works fastest, old-browser-compatible.
+ * for (let item of arr) – the modern syntax for items only,
+ * for (let i in arr) – never use.
+ *
+ */
+
+//============ What is this code going to show?
+
+let fruits = ["Apples", "Pear", "Orange"];
+// push a new value into the "copy"
+let shoppingCart = fruits;
+shoppingCart.push("Banana");
+// what's in fruits?
+alert(fruits.length); // ?
+
+
+
+// we can put evertihg in array
+
+let arrays = [3, 'string', true, null, undefined, {a:1, b:3}, function(){
+    console.log("hello");
+}]
