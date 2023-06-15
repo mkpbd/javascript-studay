@@ -164,3 +164,89 @@ let i = 0;
 while (i != 10) {
   i += 0.2;
 }
+
+//============== A random number from min to max importance: 2
+
+alert(random(1, 5)); // 1.2345623452
+alert(random(1, 5)); // 3.7894332423
+alert(random(1, 5)); // 4.3435234525
+
+//=============== Quotes =============
+
+//========= Strings can be enclosed within either single quotes, double quotes or backticks: ======
+
+let single = "single-quoted";
+let double = "double-quoted";
+let backticks = `backticks`;
+
+function sum3(a, b) {
+  return a + b;
+}
+alert(`1 + 2 = ${sum3(1, 2)}.`); // 1 + 2 = 3.
+
+let guestList = `Guests:
+* John
+* Pete
+* Mary
+`;
+
+//==================== Special characters =====================
+
+/**
+ *
+ *
+ * It is still possible to create multiline strings with single quotes by using a so-called “newline character”, written as \n , which denotes a line break:
+ *
+ */
+
+let guestList2 = "Guests:\n * John\n * Pete\n * Mary";
+alert(guestList2); // a multiline list of guests
+
+let str1 = "Hello\nWorld"; // two lines using a "newline symbol"
+// two lines using a normal newline and backticks
+let str2 = `Hello
+World`;
+alert(str1 == str2); // true
+
+/**
+ *     Chartcher                     Description
+ *
+ *      \n                              New line
+ *      \r                              Carriage return: not used alone. Windows text files use a combination of two characters \n\r to represent a line break.
+ *      \' , \"                         Quotes
+ *      \\                              Backslash
+ *
+ *      \b , \f , \v                    Backspace, Form Feed, Vertical Tab – kept for compatibility, not used nowadays
+ *
+ *      \xXX                            Unicode character with the given hexadimal unicode XX , e.g. '\x7A' is the same as 'z' .
+ *
+ *      \uXXXX                          A unicode symbol with the hex code XXXX in UTF-16 encoding, for instance \u00A9 – is a unicode for the copyright symbol © . It must be exactly 4 hex digits.
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
+// Examples with unicode:
+
+alert("\u00A9"); // ©
+alert("\u{20331}"); // 佫, a rare Chinese hieroglyph (long unicode)
+alert("\u{1F60D}"); // 😍, a smiling face symbol (another long unicode)
+
+alert(" I ' mthe Walrus ! "); // / / I ' m the Walrus!
+alert(`I'm the Walrus!`); // I'm the Walrus!
+alert(`The backslash: \\`); // The backslash: \
+alert(`My\n`.length); // 3
+
+//========== Accessing characters ===========
+
+let str3 = `Hello`;
+// the first character
+
+alert(str3[0]); // H
+alert(str3.charAt(0)); // H
+// the last character
+alert(str3[str3.length - 1]); // o
