@@ -195,7 +195,7 @@ alert(str16); // Bilbo;Gandalf;Nazgul
 
 let value = arr.reduce(function (previousValue, item, index, array) {
   // ...
-}, 0/*** inital value or first value */);
+}, 0 /*** inital value or first value */);
 
 /**
  * The function is applied to the elements. You may notice the familiar arguments, starting from the
@@ -206,7 +206,137 @@ array – is the array.
  * 
  */
 
-
 let arr121 = [1, 2, 3, 4, 5];
 let result121 = arr121.reduce((sum, current) => sum + current, 0);
 alert(result121); // 15
+
+let arraa = [1, 2, 3, 4, 5];
+// removed initial value from reduce (no 0)
+let resultaa = arraa.reduce((sum, current) => sum + current);
+alert(resultaa); // 15
+
+let arre = [];
+// Error: Reduce of empty array with no initial value
+// if the initial value existed, reduce would return it for the empty arr.
+arre.reduce((sum, current) => sum + current);
+
+//******************** Array.isArray ****************************/
+
+// Arrays do not form a separate language type. They are based on objects.
+// So typeof does not help to distinguish a plain object from an array:
+
+alert(typeof {}); // object
+alert(typeof []); // same
+// It returns true if the value is an array, and false otherwise.
+
+alert(Array.isArray({})); // false
+alert(Array.isArray([])); // true
+
+// Most methods support “thisArg”
+
+// Almost all array methods that call functions – like find , filter , map , with a notable exception of sort , accept an optional additional parameter thisArg .
+
+arraa.find(func, thisArg);
+arraa.filter(func, thisArg);
+arraa.map(func, thisArg);
+
+//===================== The value of thisArg parameter becomes this for func . ===========
+
+// ================ For instance, here we use an object method as a filter and thisArg comes in handy: ===============
+
+let user1 = {
+  age: 18,
+  younger(otherUser) {
+    return otherUser.age < this.age;
+  },
+};
+let users1 = [{ age: 12 }, { age: 16 }, { age: 32 }];
+// find all users younger than user
+let youngerUsers = users.filter(user.younger, user);
+alert(youngerUsers.length); // 2
+
+
+/**
+ * 
+ * ******************************** To add/remove elements ***************************
+ * 
+ * push(...items) – adds items to the end,
+ * pop() – extracts an item from the end,
+ * shift() – extracts an item from the beginning,
+ * unshift(...items) – adds items to the beginning.
+ * splice(pos, deleteCount, ...items) – at index pos delete deleteCount
+ * elements and insert items .
+ * slice(start, end) – creates a new array, copies elements from position start till
+ * end (not inclusive) into it.
+ * concat(...items) – returns a new array: copies all members of the current one and
+ * adds items to it. If any of items is an array, then its elements are taken.
+ * 
+ * 
+ */
+
+
+//********************************** To search among elements ******************************* */
+
+/**
+ * 
+ * 
+ * indexOf/lastIndexOf(item, pos) – look for item starting from position pos ,
+ * return the index or -1 if not found.
+ * includes(value) – returns true if the array has value , otherwise false .
+ * find/filter(func) – filter elements through the function, return first/all values that make it return true .
+ * findIndex is like find , but returns the index instead of a value
+ * 
+ * 
+ */
+
+//********************** To iterate over elements: ********************************/
+
+// forEach(func) – calls func for every element, does not return anything 
+
+//=============== To transform the array: ====================
+
+/****
+ * 
+ * 
+ * map(func) – creates a new array from results of calling func for every element.
+ * sort(func) – sorts the array in-place, then returns it.
+ * reverse() – reverses the array in-place, then returns it.
+ * split/join – convert a string to array and back.
+ * reduce(func, initial) – calculate a single value over the array by calling func
+ * for each element and passing an intermediate result between the calls.
+ * 
+ */
+
+/**
+ * 
+ * 
+ * ********************** Additionally: *************************
+ * 
+ * Array.isArray(arr) checks arr for being an array
+ * 
+ * Please note that methods sort , reverse and splice modify the array itself
+ * 
+ */
+
+
+/***
+ * 
+ * arr.some(fn)  /arr.every(fn) checks the array.
+ * 
+ * The function fn is called on each element of the array similar to map . If any/all results are true , returns true , otherwise false
+ * 
+ * arr.fill(value, start, end)  – fills the array with repeating value from index start to
+ * 
+ * arr.copyWithin(target, start, end)  – copies its elements from position start till position end into itself, at position target (overwrites existing).
+ * 
+ * let arr = [5, 3, 8, 1]; 
+ * let filtered = filterRange(arr, 1, 4);
+ * alert( filtered ); // 3,1 (matching values)
+ * alert( arr ); // 5,3,8,1 (not modified)
+ * 
+ */
+
+let arr212 = [5, 3, 8, 1];
+let filtered = filterRange(arr, 1, 4);
+alert( filtered ); // 3,1 (matching values)
+alert( arr212 ); // 5,3,8,1 (not modified)
