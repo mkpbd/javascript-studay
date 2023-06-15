@@ -77,3 +77,34 @@ alert(String.fromCodePoint(90)); // Z
 
 // 90 is 5a in hexadecimal system
 alert("\u005a"); // Z
+
+let str11 = "";
+for (let i = 65; i <= 220; i++) {
+  str11 += String.fromCodePoint(i);
+}
+alert(str11);
+// ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~􀀀􀀀􀀀􀀀􀀀
+// ¡¢£¤¥¦§¨©ª«¬ ®¯°±²³´μ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜ
+
+function checkSpam(str) {
+  return str.indexOf("XXX") !== -1 ? true : false;
+}
+
+checkSpam("buy ViAgRA now") == true;
+checkSpam("free xxxxx") == true;
+checkSpam("innocent rabbit") == false;
+
+
+// ====================== Truncate the text =====================
+
+/**
+ * 
+ * 
+ * Create a function truncate(str, maxlength) that checks the length of the str and, 
+ * if it exceeds maxlength – replaces the end of str with the ellipsis character "…" , to make its length equal to maxlength .
+ * 
+ * 
+ */
+
+truncate("What I'd like to tell on this topic is:", 20) = "What I'd like to te…"
+truncate("Hi everyone!", 20) = "Hi everyone!"
