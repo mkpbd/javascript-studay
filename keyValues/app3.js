@@ -147,3 +147,64 @@ function bench(f) {
 }
 alert("Time of diffSubtract: " + bench(diffSubtract) + "ms");
 alert("Time of diffGetTime: " + bench(diffGetTime) + "ms");
+
+//=== For more reliable benchmarking, the whole pack of benchmarks should be rerun multiple times.
+
+function diffSubtract(date1, date2) {
+  return date2 - date1;
+}
+function diffGetTime(date1, date2) {
+  return date2.getTime() - date1.getTime();
+}
+function bench(f) {
+  let date1 = new Date(0);
+  let date2 = new Date();
+  let start = Date.now();
+  for (let i = 0; i < 100000; i++) f(date1, date2);
+  return Date.now() - start;
+}
+
+let time2 = 0;
+// run bench(upperSlice) and bench(upperLoop) each 10 times alternating
+for (let i = 0; i < 10; i++) {
+  time1 += bench(diffSubtract);
+  time2 += bench(diffGetTime);
+}
+alert("Total time for diffSubtract: " + time1);
+alert("Total time for diffGetTime: " + time2);
+
+// added for "heating up" prior to the main loop
+bench(diffSubtract);
+bench(diffGetTime);
+// now benchmark
+for (let i = 0; i < 10; i++) {
+  time1 += bench(diffSubtract);
+  time2 += bench(diffGetTime);
+}
+
+/**
+ *
+ * Date.parse from a string
+ *
+ * The method Date.parse(str)  can read a date from a string.
+ * The string format should be: YYYY-MM-DDTHH:mm:ss.sssZ , where:  YYYY-MM-DD – is the date: year-month-day.
+ * The character "T" is used as the delimiter.
+ * HH:mm:ss.sss – is the time: hours, minutes, seconds and milliseconds.
+ * The optional 'Z' part denotes the time zone in the format +-hh:mm . A single letter Z that would mean UTC+0.
+ * Shorter variants are also possible, like YYYY-MM-DD or YYYY-MM or even YYYY .
+ * The call to Date.parse(str) parses the string in the given format and returns the
+ * timestamp (number of milliseconds from 1 Jan 1970 UTC+0). If the format is invalid, returns
+ *
+ *
+ */
+
+
+
+let ms = Date.parse('2012-01-26T13:51:50.417-07:00');
+alert(ms); // 1327611110417 (timestamp)
+
+
+// We can instantly create a new Date object from the timestamp: /
+
+let date9 = new Date( Date.parse('2012-01-26T13:51:50.417-07:00') );
+alert(date);
