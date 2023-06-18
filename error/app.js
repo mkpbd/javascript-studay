@@ -129,3 +129,69 @@ alert( user2.name ); // no name!
 } catch (e) {
 alert( "doesn't execute" );
 }
+
+//========= “Throw” operator =========================  
+
+// The throw operator generates an error. 
+
+//throw <error object>
+
+let error1 = new Error(message);
+// or
+let error2 = new SyntaxError(message);
+let error3 = new ReferenceError(message);
+
+let error4 = new Error("Things happen o_O");
+alert(error4.name); // Error
+alert(error4.message); // Things happen o_O
+
+// Let’s see what kind of error JSON.parse generates: 
+
+
+try {
+    JSON.parse("{ bad json o_O }");
+    } catch(e) {
+    alert(e.name); // SyntaxError
+    alert(e.message); // Unexpected token o in JSON at position 0
+    }
+
+
+
+    let json3 = '{ "age": 30 }'; // incomplete data
+try {
+let user = JSON.parse(json3); // <-- no errors
+if (!user.name) {
+throw new SyntaxError("Incomplete data: no name"); // (*)
+}
+alert( user.name );
+} catch(e) {
+alert( "JSON Error: " + e.message ); // JSON Error: Incomplete data: no name
+}
+
+
+// Rethrowing 
+
+try {
+    user = JSON.parse(json); // <-- forgot to put "let" before user
+    // ...
+    } catch(err) {
+    alert("JSON Error: " + err); // JSON Error: ReferenceError: user is not defined
+    // (no JSON Error actually)
+    }
+
+
+    let json4 = '{ "age": 30 }'; // incomplete data
+try {
+let user = JSON.parse(json4);
+if (!user.name) {
+throw new SyntaxError("Incomplete data: no name");
+}
+blabla(); // unexpected error
+alert( user.name );
+} catch(e) {
+if (e.name == "SyntaxError") {
+alert( "JSON Error: " + e.message );
+} else {
+throw e; // rethrow (*)
+}
+}
