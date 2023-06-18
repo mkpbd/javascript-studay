@@ -151,3 +151,174 @@ worker2.slow = cachingDecorator(worker2.slow);
 let args = [1, 2, 3];
 func.call(context, ...args); // pass an array as list with spread operator
 func.apply(context, args); // is same as using apply
+
+//====================  One of the most important uses of apply is passing the call to another function, like this: =============
+
+let wrapper = function () {
+  return anotherFunction.apply(this, arguments);
+};
+
+/**
+ *
+ *
+ * That’s called call forwarding. The wrapper passes everything it gets: the context this and arguments to anotherFunction and returns back its result.
+ *
+ */
+
+let worker = {
+  slow(min, max) {
+    alert(`Called with ${min},${max}`);
+    return min + max;
+  },
+};
+function cachingDecorator(func, hash) {
+  let cache = new Map();
+  return function () {
+    let key = hash(arguments); // (*)
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    let result = func.apply(this, arguments); // (**)
+    cache.set(key, result);
+    return result;
+  };
+}
+
+function hash(args) {
+  return args[0] + "," + args[1];
+}
+worker.slow = cachingDecorator(worker.slow, hash);
+alert(worker.slow(3, 5)); // works
+alert("Again " + worker.slow(3, 5)); // same (cached)
+
+/***
+ *
+ * *************************** There are two changes ***************************
+ *
+ * In the line (*) it calls hash to create a single key from arguments . Here we use a simple “joining” function that turns arguments (3, 5) into the key "3,5" .
+ *  More complex cases may require other hashing functions. Then (**) uses func.apply to pass both the context and all arguments the wrapper got (no matter how many) to the original function.
+ *
+ *
+ */
+
+function hash1(args) {
+  return args[0] + "," + args[1];
+}
+
+function hash2(args) {
+  return args.join();
+}
+
+// Still, there’s an easy way to use array join:
+
+function hash3() {
+  alert([].join.call(arguments)); // 1,2
+}
+hash(1, 2);
+
+//=============== The generic call forwarding is usually done with apply : ==========
+
+let wrapper3 = function () {
+  return original.apply(this, arguments);
+};
+
+//============== Function binding ===========
+
+/**
+ *
+ * Suddenly, this just stops working right. The situation is typical for novice developers, but happens with experienced ones as well
+ *
+ */
+
+let user3 = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  },
+};
+setTimeout(user3.sayHi, 1000); // Hello, undefined!
+
+let f = user3.sayHi;
+setTimeout(f, 1000); // lost user context
+
+//============== The simplest solution is to use a wrapping function: ======================
+
+let user4 = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  },
+};
+setTimeout(function () {
+  user4.sayHi(); // Hello, John!
+}, 1000);
+
+/***
+ *
+ * Now it works, because it receives user from the outer lexical environment, and then calls the method normally.
+ *
+ *
+ */
+setTimeout(() => user.sayHi(), 1000); // Hello, John!
+
+let user5 = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  },
+};
+setTimeout(() => user5.sayHi(), 1000);
+// ...within 1 second
+user5 = {
+  sayHi() {
+    alert("Another user in setTimeout!");
+  },
+};
+
+// // Another user in setTimeout?!?
+
+//========================= ================= Solution 2: bind ===================
+
+//=========================== Functions provide a built-in method bind  that allows to fix this =============
+
+// more complex syntax will be little later
+let boundFunc = func.bind(context);
+
+let user6 = {
+  firstName: "John",
+};
+function func() {
+  alert(this.firstName);
+}
+let funcUser = func.bind(user6);
+funcUser(); // John
+
+/***
+ *
+ *
+ * Here func.bind(user) as a “bound variant” of func , with fixed this=user . All arguments are passed to the original func “as is”, for instance:
+ *
+ *
+ */
+
+let user7 = {
+  firstName: "John",
+};
+function func3(phrase) {
+  alert(phrase + ", " + this.firstName);
+}
+// bind this to user
+let funcUser7 = func3.bind(user7);
+funcUser7("Hello"); // Hello, John (argument "Hello" is passed, and this=user)
+
+//================== Now let’s try with an object method: =============
+
+let user8 = {
+  firstName: "John",
+  sayHi() {
+    alert(`Hello, ${this.firstName}!`);
+  },
+};
+let sayHi8 = user8.sayHi.bind(user); // (*)
+sayHi8(); // Hello, John!
+setTimeout(sayHi, 1000); // Hello, John!
