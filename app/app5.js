@@ -322,3 +322,15 @@ let user8 = {
 let sayHi8 = user8.sayHi.bind(user); // (*)
 sayHi8(); // Hello, John!
 setTimeout(sayHi, 1000); // Hello, John!
+
+//===================== Binding Options
+
+let user9 = {
+  firstName: "John",
+  say(phrase) {
+    alert(`${phrase}, ${this.firstName}!`);
+  },
+};
+let say = user9.say.bind(user9);
+say("Hello"); // Hello, John ("Hello" argument is passed to say)
+say("Bye"); // Bye, John ("Bye" is passed to say)
