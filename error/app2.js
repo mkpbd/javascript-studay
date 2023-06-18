@@ -79,3 +79,22 @@ function func() {
     window.onerror = function(message, url, line, col, error) {
         // ...
         };
+
+
+        window.onerror = function(message, url, line, col, error) {
+            alert(`${message}\n At ${line}:${col} of ${url}`);
+            };
+            function readData() {
+            badFunc(); // Whoops, something went wrong!
+            }
+            readData();
+
+
+            try {
+                // run this code
+                } catch(err) {
+                // if an error happened, then jump here
+                // err is the error object
+                } finally {
+                // do in any case after try/catch
+                }
