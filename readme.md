@@ -46,3 +46,26 @@ communicating with the user.
 Yes, you heard that right. The HTML spec at <b> https://html.spec.whatwg.org </b>  is
 not only about the “HTML language” (tags, attributes), but also covers a bunch of
 objects, methods and browser-specific DOM extensions. That’s “HTML in broad
+
+
+## DOM tree 
+    The backbone of an HTML document are tags.
+    According to Document Object Model (DOM), every HTML-tag is an object.
+    Nested tags are called “children” of the enclosing one.
+
+    The text inside a tag it is an object as well.
+    All these objects are accessible using JavaScript.
+
+   ### An example of DOM
+   For instance, let’s explore the DOM for this document
+    
+       `html
+       <!DOCTYPE HTML>
+        <html>
+        <head>
+        <title>About elks</title>
+        </head>
+        <body>
+        The truth about elks.
+        </body>
+        </html>`
