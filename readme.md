@@ -69,3 +69,15 @@ objects, methods and browser-specific DOM extensions. That’s “HTML in broad
         The truth about elks.
         </body>
         </html>`
+
+
+    The DOM represents HTML as a tree structure of tags. Here’s how it looks:
+
+    ![DOM Tree ](./images/domTree.png)
+
+    Tags are called element nodes (or just elements). Nested tags become children of
+the enclosing ones. As a result we have a tree of elements: <html> is at the
+root, then <head> and <body> are its children, etc.
+The text inside elements forms text nodes, labelled as #text . A text node
+contains only a string. It may not have children and is always a leaf of the tree.
+For instance, the <title> tag has the text "About elks"
