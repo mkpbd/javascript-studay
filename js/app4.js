@@ -103,3 +103,24 @@ new Promise(function(resolve, reject) {
             }).then(function(result) {
             alert(result); // 4
             });
+
+            /** 
+             * 
+             * To be precise, .then may return a so-called “thenable” object – an arbitrary object that has method .then , and it will be treated the same way as a promise.
+            */
+
+            class Thenable {
+                constructor(num) {
+                this.num = num;
+                }
+                then(resolve, reject) {
+                alert(resolve); // function() { native code }
+                // resolve with this.num*2 after the 1 second
+                setTimeout(() => resolve(this.num * 2), 1000); // (**)
+                }
+                }
+                new Promise(resolve => resolve(1))
+                .then(result => {
+                return new Thenable(result); // (*)
+                })
+                .then(alert); // shows 2 after 1000ms
