@@ -9,7 +9,9 @@ Here we used document.body.style , but there’s much, much more.
 Properties and methods are described in the specification:
 
 [DOM Living Standard](https://dom.spec.whatwg.org/)
+
 ### CSSOM for styling
+
 CSS rules and stylesheets are not structured like HTML. There’s a separate
 specification CSSOM that explains how they are represented as objects and how to read and write them.
 CSSOM is used together with DOM when we modify style rules for the
@@ -19,27 +21,23 @@ JavaScript, so we won’t cover it right now.
 
 [CSS Object Models](https://www.w3.org/TR/cssom-1/)
 
-
 ## BOM (Browser object model)
+
     Browser Object Model (BOM) are additional objects provided by the browser (host environment) to work with everything except the document.
 
-  1.  The navigator  object provides background information about the browser
+  1. The navigator  object provides background information about the browser
 and the operating system. There are many properties, but the two most widely
 known are: navigator.userAgent – about the current browser, and
 navigator.platform – about the platform (can help to differ between
 Windows/Linux/Mac etc).
 
-2. The location  object allows us to read the current URL and can redirect the
+  2. The location  object allows us to read the current URL and can redirect the
 browser to a new one.
 Here’s how we can use the location object:
-
-
 
 Functions alert/confirm/prompt are also a part of BOM: they are directly
 not related to the document, but represent pure browser methods of
 communicating with the user.
-
-
 
 ## BOM is the part of the general [BOM](https://html.spec.whatwg.org/)
 
@@ -47,8 +45,8 @@ Yes, you heard that right. The HTML spec at <b> https://html.spec.whatwg.org </b
 not only about the “HTML language” (tags, attributes), but also covers a bunch of
 objects, methods and browser-specific DOM extensions. That’s “HTML in broad
 
+## DOM tree
 
-## DOM tree 
     The backbone of an HTML document are tags.
     According to Document Object Model (DOM), every HTML-tag is an object.
     Nested tags are called “children” of the enclosing one.
@@ -56,9 +54,10 @@ objects, methods and browser-specific DOM extensions. That’s “HTML in broad
     The text inside a tag it is an object as well.
     All these objects are accessible using JavaScript.
 
-   ### An example of DOM
+### An example of DOM
+
    For instance, let’s explore the DOM for this document
-    
+
        `html
        <!DOCTYPE HTML>
         <html>
@@ -70,11 +69,9 @@ objects, methods and browser-specific DOM extensions. That’s “HTML in broad
         </body>
         </html>`
 
-
 The DOM represents HTML as a tree structure of tags. Here’s how it looks:
 
 ![DOM Tree ](./images/domTree.png)
-
 
 Tags are called element nodes (or just elements). Nested tags become children of
 the enclosing ones. As a result we have a tree of elements: <html> is at the
@@ -87,9 +84,8 @@ Please note the special characters in text nodes:
     a newline: ↵ (in JavaScript known as \n )
     a space: ␣
 
-
-
 ## Autocorrection
+
     If the browser encounters malformed HTML, it automatically corrects it when making DOM.
     For instance, the top tag is always <html> . Even if it doesn’t exist in the document – it will exist in the DOM, the browser will create it. The same goes for <body> .
     As an example, if the HTML file is a single word "Hello" , the browser will wrap it into <html> and <body> , add the required <head> , and the DOM will be:
@@ -107,15 +103,18 @@ Please note the special characters in text nodes:
     Will become a normal DOM, as the browser reads tags and restores the missing parts:
 ![Restore DOM](./images/restoreDome.png)
 
-
-
 ### Tables always have <tbody>
+
 An interesting “special case” is tables. By the DOM specification they must
 have <tbody> , but HTML text may (officially) omit it. Then the browser
 creates <tbody> in DOM automatically.
 For the HTML:
 
-<table id="table"><tr><td>1</td></tr></table>
+`<table id="table">
+    <tr>
+        <td>1</td>
+    </tr>
+</table>`
 
 DOM-structure will be:
 ![Tables Structure](./images/tables.png)
