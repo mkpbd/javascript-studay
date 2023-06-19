@@ -84,8 +84,18 @@ function loadScript(src) {
  */
 
 loadScript3('/js/script.js', function(script) {
-    alert(`Cool, the ${script.src} is loaded, let's load one more`);
+   // alert(`Cool, the ${script.src} is loaded, let's load one more`);
     loadScript3('/js/script2.js', function(script) {
-    alert(`Cool, the second script is loaded`);
+    //alert(`Cool, the second script is loaded`);
     });
     });
+
+
+    loadScript3('/js/script.js', function(script) {
+       // alert(`Cool, the ${script.src} is loaded, let's load one more`);
+        loadScript3('/js/script2.js', function(script) {
+       // alert(`Cool, the second script is loaded`);
+        });
+
+        loadScript3('/js/script3.js', function(script) {})
+        });
