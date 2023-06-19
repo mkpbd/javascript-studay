@@ -106,3 +106,19 @@ Please note the special characters in text nodes:
     ```
     Will become a normal DOM, as the browser reads tags and restores the missing parts:
 ![Restore DOM](./images/restoreDome.png)
+
+
+
+### Tables always have <tbody>
+An interesting “special case” is tables. By the DOM specification they must
+have <tbody> , but HTML text may (officially) omit it. Then the browser
+creates <tbody> in DOM automatically.
+For the HTML:
+
+<table id="table"><tr><td>1</td></tr></table>
+
+DOM-structure will be:
+![Tables Structure](./images/tables.png)
+
+You see? The <tbody> appeared out of nowhere. You should keep this in
+mind while working with tables to avoid surprises.
