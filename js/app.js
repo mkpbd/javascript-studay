@@ -199,3 +199,20 @@ on! Internally, they use [[Set]] operation, that’s intercepted by the proxy.
 So the code is clean and concise.
  * 
  */
+
+
+/**
+ *  
+ * Protected properties with “deleteProperty” and “ownKeys”
+ * 
+ * There’s a widespread convention that properties and methods prefixed by an underscore _ are internal. They shouldn’t be accessible from outside the object.
+ * 
+ * 
+ */
+let user = {
+    name: "John",
+    _password: "secret"
+    };
+    alert(user._password); // secret
+
+    
