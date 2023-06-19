@@ -82,3 +82,27 @@ root, then <head> and <body> are its children, etc.
 The text inside elements forms text nodes, labelled as #text . A text node
 contains only a string. It may not have children and is always a leaf of the tree.
 For instance, the <title> tag has the text "About elks"
+
+Please note the special characters in text nodes:
+    a newline: ↵ (in JavaScript known as \n )
+    a space: ␣
+
+
+
+## Autocorrection
+    If the browser encounters malformed HTML, it automatically corrects it when making DOM.
+    For instance, the top tag is always <html> . Even if it doesn’t exist in the document – it will exist in the DOM, the browser will create it. The same goes for <body> .
+    As an example, if the HTML file is a single word "Hello" , the browser will wrap it into <html> and <body> , add the required <head> , and the DOM will be:
+
+![Auto corrections](./images/autocorection.png)
+    While generating the DOM, browsers automatically process errors in the document, close tags and so on. Such an document with unclosed tags:
+
+    ```HtML
+
+        <p>Hello
+        <li>Mom
+        <li>and
+        <li>Dad
+    ```
+    Will become a normal DOM, as the browser reads tags and restores the missing parts:
+![Restore DOM](./images/restoreDome.png)
