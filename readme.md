@@ -110,14 +110,54 @@ have <tbody> , but HTML text may (officially) omit it. Then the browser
 creates <tbody> in DOM automatically.
 For the HTML:
 
-`<table id="table">
+``` Code example
+<table id="table">
     <tr>
         <td>1</td>
     </tr>
-</table>`
+</table>
+```
 
 DOM-structure will be:
 ![Tables Structure](./images/tables.png)
 
 You see? The <tbody> appeared out of nowhere. You should keep this in
 mind while working with tables to avoid surprises.
+
+## Another Example
+
+``` HTML
+    <!DOCTYPE HTML>
+    <html>
+    <body>
+    The truth about elks.
+    <ol>
+    <li>An elk is a smart</li>
+    <!-- comment -->
+    <li>...and cunning animal!</li>
+    </ol>
+    </body>
+    </html>
+```
+
+![More Examples](./images/anotherExample.png)
+
+Here we see a new tree node type – comment node, labeled as #comment .
+We may think – why is a comment added to the DOM? It doesn’t affect the visual
+representation in any way. But there’s a rule – if something’s in HTML, then it also
+must be in the DOM tree.
+
+### ***Everything in HTML, even comments, becomes a part of the DOM.***
+
+Even the <!DOCTYPE...> directive at the very beginning of HTML is also a
+DOM node. It’s in the DOM tree right before <html> . We are not going to touch
+that node, we even don’t draw it on diagrams for that reason, but it’s there.
+The document object that represents the whole document is, formally, a DOM
+node as well.
+There are 12 node types  . In practice we usually work with 4 of them:
+
+1. document – the “entry point” into DOM.
+2. element nodes – HTML-tags, the tree building blocks.
+3. text nodes – contain text.
+4. comments – sometimes we can put the information there, it won’t be shown,
+but JS can read it from the DOM.
