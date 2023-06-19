@@ -161,3 +161,64 @@ There are 12 node types  . In practice we usually work with 4 of them:
 3. text nodes – contain text.
 4. comments – sometimes we can put the information there, it won’t be shown,
 but JS can read it from the DOM.
+
+### In the browser inspector
+
+Another way to explore the DOM is to use the browser developer tools. Actually,
+that’s what we use when developing.
+To do so, open the web-page elks.html, turn on the browser developer tools and
+switch to the Elements tab.
+
+``` html
+<!DOCTYPE HTML>
+<html>
+<body>
+  The truth about elks.
+  <ol>
+    <li>An elk is a smart</li>
+    <!-- comment -->
+    <li>...and cunning animal!</li>
+  </ol>
+</body>
+</html>
+```
+
+![Element Table](./images/elementTab.png)
+
+You can see the DOM, click on elements, see their details and so on.
+Please note that the DOM structure in developer tools is simplified. Text nodes are
+shown just as text. And there are no “blank” (space only) text nodes at all. That’s
+fine, because most of the time we are interested in element nodes.
+Clicking the button in the left-upper corner allows to choose a node from the
+webpage using a mouse (or other pointer devices) and “inspect” it (scroll to it in
+the Elements tab). This works great when we have a huge HTML page (and
+corresponding huge DOM) and would like to see the place of a particular element in it.
+Another way to do it would be just right-clicking on a webpage and selecting
+“Inspect” in the context menu.
+
+![Inspect](./images/inspact.png)
+
+At the right part of the tools there are the following subtabs:
+
+1. ***</b>Styles*** – we can see CSS applied to the current element rule by rule, including
+    built-in rules (gray). Almost everything can be edited in-place, including the dimensions/margins/paddings of the box below.
+2. ***Computed*** – to see CSS applied to the element by property: for each property  we can see a rule that gives it (including CSS inheritance and such).
+3. ***Event Listeners*** – to see event listeners attached to DOM elements (we’ll cover them in the next part of the tutorial).
+
+### Interaction with console
+
+As we explore the DOM, we also may want to apply JavaScript to it. Like: get a
+node and run some code to modify it, to see the result. Here are few tips to travel between the Elements tab and the console.
+1.Select the first <li> in the Elements tab.
+2.Press Esc – it will open console right below the Elements tab.
+Now the last selected element is available as $0 , the previously selected is $1 etc.
+We can run commands on them. For instance, $0.style.background = 'red' makes the selected list item red, like this
+
+![Console Options](./images/console.png)
+From the other side, if we’re in console and have a variable referencing a DOM node, then we can use the command inspect(node) to see it in the Elements pane.
+Or we can just output it in the console and explore “at-place”, like document.body below:
+
+![debugging tools](./images/console1.png)
+
+That’s for debugging purposes of course. From the next chapter on we’ll access and modify DOM using JavaScript.
+The browser developer tools are a great help in development: we can explore the DOM, try things and see what goes wrong.
