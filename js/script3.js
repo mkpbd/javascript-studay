@@ -1,2 +1,1 @@
-console.log('Script 3 loaded successfully   ');
-
+console.log("Script 3 loaded successfully   ");

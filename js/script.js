@@ -2,4 +2,4 @@
 
 document.body.innerHTML = "hello world!";
 document.body.style.backgroundColor = "blue";
-document.body.style.color='white';
+document.body.style.color = "white";
