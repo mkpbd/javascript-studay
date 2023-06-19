@@ -155,3 +155,47 @@ let dictionary = {
   //  dictionary = new Proxy(dictionary, ...);
 //numbers = new Proxy(numbers, ...);
 
+
+
+
+//********* Validation with “set” trap */
+
+/**
+ * 
+ * 
+ * The set trap triggers when a property is written: set(target, property, value, receiver)
+ * target – is the target object, the one passed as the first argument to new Proxy , 
+ * property – property name,
+ * value – property value, 
+ * receiver – same as in get trap, only matters if the property is a setter.
+ * 
+ */
+
+let numbers3 = [];
+numbers3 = new Proxy(numbers3, { // (*)
+set(target, prop, val) { // to intercept property writing
+if (typeof val == 'number') {
+target[prop] = val;
+return true;
+} else {
+return false;
+}
+}
+});
+numbers3.push(1);
+numbers3.push(2);
+
+alert("Length is: " + numbers.length); // 2
+numbers.push("test"); // TypeError ('set' on proxy returned false)
+alert("This line is never reached (error in the line above)");
+
+
+/**
+ * 
+ * Please note: the built-in functionality of arrays is still working! The length property autoincreases
+when values are added. Our proxy doesn’t break anything.
+Also, we don’t have to override value-adding array methods like push and unshift , and so
+on! Internally, they use [[Set]] operation, that’s intercepted by the proxy.
+So the code is clean and concise.
+ * 
+ */
