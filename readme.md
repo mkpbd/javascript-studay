@@ -216,4 +216,44 @@ Sometimes when we have a big element, that may be faster and simpler
 
 DocumentFragment is a special DOM node that serves as a wrapper to pass around lists of nodes.
 We can append other nodes to it, but when we insert it somewhere, then its content is inserted instead.
-For example, getListContent below generates a fragment with <li> items, that are later inserted into <ul>
+For example, **getListContent** below generates a fragment with <li> items, that are later inserted into <ul>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocumentFragment</title>
+</head>
+
+<body>
+
+    <ul id="ul"></ul>
+    <script>
+        function getListContent() {
+            let fragment = new DocumentFragment();
+            for (let i = 1; i <= 3; i++) {
+                let li = document.createElement('li');
+                li.append(i);
+                fragment.append(li);
+            }
+            return fragment;
+        }
+        ul.append(getListContent()); // (*)
+    </script>
+</body>
+
+</html>
+```
+
+Please note, at the last line **(*)** we append DocumentFragment , but it “blends in”, so the resulting structure will be:
+
+## Removal methods
+
+**parentElem.removeChild(node)**
+Removes node from parentElem (assuming it’s a child)
+**node.remove()**
+Removes the node from its place.
+We can easily see that the second method is much shorter. The first one exists for historical reasons
