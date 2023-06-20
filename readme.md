@@ -22,3 +22,24 @@ We can use it to immediately access the element no matter where it is:
     alert(window['elem-content']); // ...but accessible using square brackets [...]
 </script>
 ```
+
+The better alternative is to use a special method *document.getElementById(id)* .
+
+``` html
+<div id="elem">
+    <div id="elem-content">Element</div>
+</div>
+<script>
+    let elem = document.getElementById('elem');
+    elem.style.background = 'red';
+</script>
+```
+
+Here in the tutorial we’ll often use id to directly reference an element, but that’s
+only to keep things short. In real life document.getElementById is the preferred method.
+
+#### There can be only one
+
+The id must be unique. There can be only one element in the document with the given id .
+Only document.getElementById , not anyNode.getElementById
+The method getElementById that can be called only on document object. It looks for the given id in the whole document
