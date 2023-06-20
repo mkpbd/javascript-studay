@@ -43,3 +43,45 @@ only to keep things short. In real life document.getElementById is the preferred
 The id must be unique. There can be only one element in the document with the given id .
 Only document.getElementById , not anyNode.getElementById
 The method getElementById that can be called only on document object. It looks for the given id in the whole document
+
+## querySelectorAll
+
+By far, the most versatile method, **elem.querySelectorAll(css)** returns all elements inside elem matching the given CSS selector.
+Here we look for all <li> elements that are last children:
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Query Selector All</title>
+    </head>
+
+    <body>
+        <ul>
+            <li>The</li>
+            <li>test</li>
+        </ul>
+        <ul>
+            <li>has</li>
+            <li>passed</li>
+        </ul>
+        <script>
+            let elements = document.querySelectorAll('ul > li:last-child');
+            for (let elem of elements) {
+                alert(elem.innerHTML); // "test", "passed"
+            }
+        </script>
+    </body>
+
+</html>
+```
+
+This method is indeed powerful, because any CSS selector can be used
+
+**Can use pseudo-classes as well**
+
+Pseudo-classes in the CSS selector like :hover and :active are also supported. For instance, document.querySelectorAll(':hover') will return the collection with elements that the pointer is over now (in nesting
+order: from the outermost <html> to the most nested one).
