@@ -414,3 +414,36 @@ The links are similar to those given above, just with **Element** word inside:
 - **firstElementChild , lastElementChild** – first and last element children.
 - **previousElementSibling , nextElementSibling** – neighbour elements.
 - **parentElement** – parent element
+
+## **document.getElementById or just id**
+
+If an element has the id attribute, then there’s a global variable by the name from that id .
+We can use it to immediately access the element no matter where it is:
+
+``` html
+<div id = "elem">
+        <div id="elem-content">Element</div>
+</div>
+<script>
+    alert(elem); // DOM-element with id="elem"
+    alert(window.elem); // accessing global variable like this also works
+    // for elem-content things are a bit more complex
+    // that has a dash inside, so it can't be a variable name
+    alert(window['elem-content']); // ...but accessible using square brackets [...]
+</script>
+```
+
+*document.getElementById(id)*
+
+``` html
+<div id="elem">
+    <div id="elem-content">Element</div>
+</div>
+<script>
+    let elem = document.getElementById('elem');
+    elem.style.background = 'red';
+</script>
+```
+**There can be only one**
+The id must be unique. There can be only one element in the document with the given id .
+If there are multiple elements with the same id , then the behavior of corresponding methods is unpredictable. The browser may return any of them at random. So please stick to the rule and keep id unique.
