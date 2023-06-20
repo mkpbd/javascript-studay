@@ -256,3 +256,41 @@ let generator01 = gen();
 alert(generator01.next().value); // "2 + 2?"
 alert(generator01.next(4).value); // "3 * 3?"
 alert(generator01.next(9).done); // true
+
+//================== generator.throw ===================
+
+//As we observed in the examples above, the outer code may pass a value into the generator, as the result of yield .
+
+function* gen3() {
+  try {
+    let result = yield "2 + 2?"; // (1)
+    alert(
+      "The execution does not reach here, because the exception is thrown above"
+    );
+  } catch (e) {
+    alert(e); // shows the error
+  }
+}
+let generator11 = gen();
+let question12 = generator11.next().value;
+generator11.throw(new Error("The answer is not found in my database")); // (2)
+
+function* generate00() {
+  let result = yield "2 + 2?"; // Error in this line
+}
+let generator00 = generate00();
+let question00 = generator.next().value;
+try {
+  generator00.throw(new Error("The answer is not found in my database"));
+} catch (e) {
+  alert(e); // shows the error
+}
+
+/**
+ * 
+ * Generators are created by generator functions function* f(…) {…} .
+ * Inside generators (only) there exists a yield operator.
+ * The outer code and the generator may exchange results via next/yield calls
+ * 
+ * 
+ */
