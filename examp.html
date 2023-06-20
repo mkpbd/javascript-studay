@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+</head>
+
+<body>
+
+    <div id="container">
+
+    </div>
+    <script>
+        let data = {
+            "Fish": {
+                "trout": {},
+                "salmon": {}
+            },
+            "Tree": {
+                "Huge": {
+                    "sequoia": {},
+                    "oak": {}
+                },
+                "Flowering": {
+                    "apple tree": {},
+                    "magnolia": {}
+                }
+            }
+        };
+
+        let container = document.getElementById('container');
+        createTree(container, data); // creates the tree in the container
+
+        function createTree(container, data) {
+
+            // if (data.length > 0) {
+            // debugger;
+            let datas = '';
+            for (let key in data) {
+                //    datas  += `<ul> 
+                //                     <li> ${key} 
+                //                             <ul> <li> ${data[key]} </li> </ul>
+                //                         </li>
+                //                 </ul>`;
+
+                console.log(key);
+                for (var c in data[key]) {
+                    console.log(c);
+                }
+            }
+            // container.InnerHTML = datas;
+            // }
+        }
+
+    </script>
+</body>
+
+L

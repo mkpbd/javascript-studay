@@ -326,3 +326,18 @@ Given a piece of HTML: elem.insertAdjacentHTML(where, html) ,inserts depending o
 - "beforeend" – insert html into elem , at the end,
 - "afterend" – insert html right after elem .
 Also there are similar methods elem.insertAdjacentText and **elem.insertAdjacentElement** , they insert text strings and elements, but they are rarely used.
+
+## className and classList
+
+Changing a class is one of the most often used actions in scripts.
+In the ancient time, there was a limitation in JavaScript: a reserved word like "class" could not be an object property. That limitation does not exist now, but at that time it was impossible to have a "class" property, like elem.class .
+
+There’s another property for that: elem.classList
+
+The elem.classList is a special object with methods to **add/remove/toggle classe**.
+
+Methods of classList :
+
+- elem.classList.add/remove("class") – adds/removes the class.
+- elem.classList.toggle("class") – adds the class if it doesn’t exist, otherwise removes it.
+- elem.classList.contains("class") – returns true/false , checks for the given class.
