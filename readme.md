@@ -78,4 +78,86 @@ For instance, to assign a click handler for an input , we can use onclick , like
 
 ### DOM property
 
-We can assign a handler using a DOM property on<event>
+We can assign a handler using a DOM property on **event**
+The handler is always in the DOM property: the HTML-attribute is just one of the ways to initialize it.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input id="elem" type="button" value="Click me">
+    <script>
+        elem.onclick = function () {
+            alert('Thank you');
+        };
+    </script>
+</body>
+
+</html>
+```
+
+### 1. Only HTML
+
+```html
+<input type="button" onclick="alert('hello')" id="button" value="Button">
+```
+
+### 2. HTML + JS
+
+``` html
+<input type="button" id="button" value="Button">
+<script>
+button.onclick = function() {
+    alert('Click!');
+};
+</script>
+```
+
+As there’s only one onclick property, we can’t assign more than one event handler.
+
+In the example below adding a handler with JavaScript overwrites the existing handler:
+
+```html
+<input type="button" id="elem" onclick="alert('Before')" value="Click me">
+<script>
+elem.onclick = function() { // overwrites the existing handler
+    alert('After'); // only this will be shown
+};
+</script>
+```
+
+### By the way, we can assign an existing function as a handler directly
+
+```javascript
+function sayThanks() {
+    alert('Thanks!');
+}
+elem.onclick = sayThanks;
+```
+
+To remove a handler – assign elem.onclick = null
+
+Accessing the element: this
+
+The value of this inside a handler is the element. The one which has the handler on it.
+
+In the code below button shows its contents using this.innerHTML :
+
+```javascript
+<button onclick="alert(this.innerHTML)">Click me</button>
+    // Possible mistakes
+    // The function should be assigned as sayThanks , not sayThanks() .
+    // right
+    button.onclick = sayThanks;
+    // wrong
+    button.onclick = sayThanks();
+<input type="button" id="button" onclick="sayThanks()">
+```
