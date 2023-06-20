@@ -20,7 +20,6 @@ let div = document.createElement('div');
 
 Creates a new text node with the given text:
 
-
 **Creating the message**
 In our case we want to make a div with given classes and the message in it:
 
@@ -54,7 +53,6 @@ div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
 document.body.appendChild(div);
 </script>
 ```
-
 
 **parentElem.appendChild(node)**
 
@@ -119,7 +117,6 @@ Replaces oldChild with node among children of parentElem
 
 All these methods return the inserted node. In other words, parentElem.appendChild(node) returns node . But usually the returned value is not used, we just run the method.
 
-
 ***prepend/append/before/after***
 
 This set of methods provides more flexible insertions:
@@ -133,7 +130,6 @@ This set of methods provides more flexible insertions:
 All of them accept a list of DOM nodes and/or text strings. If a string is given it’s inserted as a text node.
 
 Here’s an example of using these methods to add more items to a list and the text before/after it:
-
 
 ```javascript
 <!DOCTYPE html>
@@ -206,3 +202,18 @@ The method has two brothers:
 
 1. elem.insertAdjacentText(where, text) – the same syntax, but a string of text is inserted “as text” instead of HTML,
 2. elem.insertAdjacentElement(where, elem) – the same syntax, but inserts an element.
+
+## Cloning nodes: cloneNode
+
+How to insert one more similar message?
+
+We could make a function and put the code there. But the alternative way would be to clone the existing div and modify the text inside it (if needed).
+Sometimes when we have a big element, that may be faster and simpler
+
+- The call **elem.cloneNode(true)** creates a “deep” clone of the element – with all attributes and sub elements. If we call elem.cloneNode(false) , then the clone is made without child elements
+
+## DocumentFragment
+
+DocumentFragment is a special DOM node that serves as a wrapper to pass around lists of nodes.
+We can append other nodes to it, but when we insert it somewhere, then its content is inserted instead.
+For example, getListContent below generates a fragment with <li> items, that are later inserted into <ul>
