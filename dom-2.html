@@ -1,0 +1,21 @@
+<html>
+
+<body>
+    <!-- The childNodes collection provides access to all child nodes, including text nodes. -->
+    <div>Begin</div>
+    <ul>
+        <li>Information</li>
+    </ul>
+    <div>End</div>
+    <script>
+        for (let i = 0; i < document.body.childNodes.length; i++) {
+            alert(document.body.childNodes[i]); // Text, DIV, Text, UL, ..., SCRIPT
+        }
+
+//         elem.childNodes[0] === elem.firstChild
+// elem.childNodes[elem.childNodes.length - 1] === elem.lastChild
+    </script>
+    ...more stuff...
+</body>
+
+</html>
