@@ -222,3 +222,109 @@ Or we can just output it in the console and explore “at-place”, like documen
 
 That’s for debugging purposes of course. From the next chapter on we’ll access and modify DOM using JavaScript.
 The browser developer tools are a great help in development: we can explore the DOM, try things and see what goes wrong.
+
+An HTML/XML document is represented inside the browser as the DOM tree.
+Tags become element nodes and form the structure. Text becomes text nodes.
+ Everything in HTML has its place in DOM, even comments.
+We can use developer tools to inspect DOM and modify it manually.
+Here we covered the basics, the most used and important actions to start with. There’s an extensive documentation about Chrome Developer Tools at <https://developers.google.com/web/tools/chrome-devtools> . The best way to learn the tools is to click here and there, read menus: most options are obvious. Later, when you know them in general, read the docs and pick up the rest.
+
+DOM nodes have properties and methods that allow to travel between them, modify, move around the page and more.
+
+## Walking the DOM
+
+The DOM allows us to do anything with elements and their contents, but first we need to reach the corresponding DOM object.
+
+All operations on the DOM start with the document object. From it we can access any node.
+![DOM Visual](./images/DOM.png)
+
+### <strong> On top: documentElement and body </strong>
+
+The topmost tree nodes are available directly as document properties:
+
+``` html
+<html> = document.documentElement
+The topmost document node is <b> document.documentElement </b> . That’s DOM node of <html> tag.
+<body> = document.body
+Another widely used DOM node is the <body> element – document.body .
+<head> = document.head
+The <head> tag is available as document.head .
+```
+
+#### **There’s a catch: document.body can be null**
+
+A script cannot access an element that doesn’t exist at the moment of running.
+In particular, if a script is inside <head> , then document.body is unavailable, because the browser did not read it yet.
+So, in the example below the first alert shows null :
+
+``` html
+    <html>
+        <head>
+            <script>
+            alert( "From HEAD: " + document.body ); // null, there's no <body> yet
+            </script>
+        </head>
+        <body>
+            <script>
+            alert( "From BODY: " + document.body ); // HTMLBodyElement, now it exists
+            </script>
+        </body>
+    </html>
+```
+
+### **In the DOM world null means “doesn’t exist”**
+
+In the DOM, the null value means “doesn’t exist” or “no such node”.
+
+## **Children: childNodes, firstChild, lastChild**
+
+There are two terms that we’ll use from now on:
+
+1. **Child nodes (or children)** – elements that are direct children. In other words,
+they are nested exactly in the given one. For instance, <head> and <body> are children of <html> element.
+2. **Descendants** – all elements that are nested in the given one, including children, their children and so on.
+
+For instance, here <body> has children <div> and <ul> (and few blank text nodes):
+
+``` html
+<html>
+    <body>
+        <div>Begin</div>
+        <ul>
+            <li>
+                <b>Information</b>
+            </li>
+        </ul>
+    </body>
+</html>
+```
+
+all descendants of <body> are not only direct children <div> , <ul> but
+also more deeply nested elements, such as <li> (a child of <ul> ) and <b> (a child of <li> ) – the entire subtree.
+
+## **The childNodes collection provides access to all child nodes, including text nodes.**
+
+``` html
+<html>
+    <body>
+        <div>Begin</div>
+
+        <ul>
+            <li>Information</li>
+        </ul>
+        <div>End</div>
+
+        <script>
+
+        for (let i = 0; i < document.body.childNodes.length; i++) {
+        alert( document.body.childNodes[i] ); // Text, DIV, Text, UL, ..., SCRIPT
+        }
+
+        </script>
+        <!-- ...more stuff... -->
+    </body>
+</html>
+```
+
+Please note an interesting detail here. If we run the example above, the last element shown is <script> . In fact, the document has more stuff below, but at
+the moment of the script execution the browser did not read it yet, so the script doesn’t see it.
