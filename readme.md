@@ -328,3 +328,89 @@ also more deeply nested elements, such as <li> (a child of <ul> ) and <b> (a chi
 
 Please note an interesting detail here. If we run the example above, the last element shown is <script> . In fact, the document has more stuff below, but at
 the moment of the script execution the browser did not read it yet, so the script doesn’t see it.
+
+## **DOM collections**
+
+As we can see, childNodes looks like an array. But actually it’s not an array, but rather a collection – a special array-like iterable object.
+
+There are two important consequences:
+
+1. We can use **for..of** to iterate over it:
+
+``` javascript
+for (let node of document.body.childNodes) {
+    alert(node); // shows all nodes from the collection
+}
+```
+
+That’s because it’s iterable (provides the **Symbol.iterator** property, as required).
+
+2. Array methods won’t work, because it’s not an array:
+
+``` javascript
+
+alert(document.body.childNodes.filter); // undefined (there's no filter method!)
+```
+
+The first thing is nice. The second is tolerable, because we can use **Array.from** to create a “real” array from the collection, if we want array methods:
+
+``` javascript
+alert( Array.from(document.body.childNodes).filter ); // now it's there
+```
+
+## DOM collections are read-only
+
+DOM collections, and even more – all navigation properties listed in this chapter are read-only.
+
+## DOM collections are live
+
+Almost all DOM collections with minor exceptions are live. In other words, they reflect the current state of DOM.
+
+``` htm
+<body>
+<script>
+// shows 0, 1, length, item, values and more.
+for (let prop in document.body.childNodes) alert(prop);
+</script>
+</body>
+```
+
+## **Siblings and the parent**
+
+*Siblings* are nodes that are children of the same *parent*. For instance, <head> and <body> are siblings:
+
+``` html
+-<body> is said to be the “next” or “right” sibling of <head> ,
+-<head> is said to be the “previous” or “left” sibling of <body> .
+```
+
+The parent is available as **parentNode** .
+The next node in the same parent (next sibling) is **nextSibling** , and the
+previous one is **previousSibling** .
+
+``` html
+<html><head></head><body><script>
+// HTML is "dense" to evade extra "blank" text nodes.
+// parent of <body> is <html>
+alert( document.body.parentNode === document.documentElement ); // true
+// after <head> goes <body>
+alert( document.head.nextSibling ); // HTMLBodyElement
+// before <body> goes <head>
+alert( document.body.previousSibling ); // HTMLHeadElement
+</script></body></html>
+```
+
+## **Element-only navigation**
+
+Navigation properties listed above refer to all nodes. For instance, in childNodes we can see both text nodes, element nodes, and even comment nodes if there exist.
+
+But for many tasks we don’t want text or comment nodes. We want to manipulate element nodes that represent tags and form the structure of the page.
+So let’s see more navigation links that only take element nodes into account:
+![Only element tags](./images/elementTag.png)
+
+The links are similar to those given above, just with **Element** word inside:
+
+- **children** – only those children that are element nodes
+- **firstElementChild , lastElementChild** – first and last element children.
+- **previousElementSibling , nextElementSibling** – neighbour elements.
+- **parentElement** – parent element
