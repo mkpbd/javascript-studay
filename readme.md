@@ -204,4 +204,4 @@ An additional optional object with properties:
 
 To remove the handler, use removeEventListener :
 
-<h3 style="background:#ddd"> element.removeEventListener(event, handler[, options]);</h3>
+<h3 style="background:#212121"> element.removeEventListener(event, handler[, options]);</h3>
