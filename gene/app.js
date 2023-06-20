@@ -38,9 +38,39 @@ import {sayHi} from './sayHis.js';
 
 // Import the same module from different files
 // 􀀀 1.js
-import {abc} from `./alert.js`; // Module is evaluated!
+import {abc} from  './alert.js'; // Module is evaluated!
 // 􀀀 2.js
-//import `./alert.js`; // (nothing)
+import './alert.js'; // (nothing)
+
+import {admin} from './admin.js';
+admin.name = "Pete";
 
 alert(sayHi); // function...
 sayHi('John'); // Hello, John!
+
+alert(admin.name);
+
+
+
+//==================== =========== import.meta ===========================
+
+/**
+ * 
+ * 
+ * The object import.meta contains the information about the current module. Its content depends on the environment. 
+ * In the browser, it contains the url of the script, or a current webpage url if inside HTML:
+ * 
+ * 
+ */
+
+
+
+//==================== Top-level “this” is undefined ===============
+
+// That’s kind of a minor feature, but for completeness we should mention it.
+// In a module, top-level this is undefined, as opposed to a global object in non-module scripts:
+
+
+//=================== Browser-specific features ==================
+
+//=========== There are also several browser-specific differences of scripts with type="module" compared to regular ones.
