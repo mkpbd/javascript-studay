@@ -289,13 +289,40 @@ We can use JavaScript to create a full-fledged webpage and write it.
 **The call to document.write only works while the page is loading.**
 
 **Methods to create new nodes**
--**document.createElement(tag)** – creates an element with the given tag,
--**document.createTextNode(value)** – creates a text node (rarely used),
--**elem.cloneNode(deep)** – clones the element, if deep==true then with all descendants.
+
+- **document.createElement(tag)** – creates an element with the given tag,
+- **document.createTextNode(value)** – creates a text node (rarely used),
+- **elem.cloneNode(deep)** – clones the element, if deep==true then with all descendants.
 
 Insertion and  removal of nodes
-  -from the parent
-    -parent.appendChild(node)
-    -parent.insertBefore(node, nextSibling)
-    -parent.removeChild(node)
-    -parent.replaceChild(newElem, node)
+
+- from the parent
+  - parent.appendChild(node)
+  - parent.insertBefore(node, nextSibling)
+  - parent.removeChild(node)
+  - parent.replaceChild(newElem, node)
+
+All these methods return **node**
+Given a list of nodes and strings:
+
+- node.append(...nodes or strings) – insert into node , at the end,
+
+- node.prepend(...nodes or strings) – insert into node , at the beginning,
+
+- node.before(...nodes or strings) –- insert right before node ,
+
+- node.after(...nodes or strings) –- insert right after node ,
+
+- node.replaceWith(...nodes or strings) –- replace node .
+
+- node.remove() –- remove the node
+
+Text strings are inserted “as text”.
+
+Given a piece of HTML: elem.insertAdjacentHTML(where, html) ,inserts depending on where:
+
+- "beforebegin" – insert html right before elem ,
+- "afterbegin" – insert html into elem , at the beginning,
+- "beforeend" – insert html into elem , at the end,
+- "afterend" – insert html right after elem .
+Also there are similar methods elem.insertAdjacentText and **elem.insertAdjacentElement** , they insert text strings and elements, but they are rarely used.
