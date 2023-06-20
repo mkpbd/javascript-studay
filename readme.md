@@ -341,3 +341,34 @@ Methods of classList :
 - elem.classList.add/remove("class") – adds/removes the class.
 - elem.classList.toggle("class") – adds the class if it doesn’t exist, otherwise removes it.
 - elem.classList.contains("class") – returns true/false , checks for the given class.
+
+## Element style
+
+The property elem.style is an object that corresponds to what’s written in the "style" attribute.
+ Setting elem.style.width="100px" works as if we had in the attribute style="width:100px"
+
+```javascript
+background-color => elem.style.backgroundColor
+z-index => elem.style.zIndex
+border-left-width => elem.style.borderLeftWidth
+
+document.body.style.backgroundColor = prompt('background color?', 'green');
+
+button.style.MozBorderRadius = '5px';
+button.style.WebkitBorderRadius = '5px';
+// if we run this code, the <body> "blinks"
+document.body.style.display = "none"; // hide
+
+setTimeout(() => document.body.style.display = "", 1000); // back to normal
+div.setAttribute('style', 'color: red...')
+```
+
+## Computed styles: getComputedStyle
+
+The style property operates only on the value of the "style" attribute, without any CSS cascade.
+So we can’t read anything that comes from CSS classes using elem.style
+
+To manage classes, there are two DOM properties
+
+- className – the string value, good to manage the whole set of classes.
+- classList – the object with methods add/remove/toggle/contains , good for individual classes.

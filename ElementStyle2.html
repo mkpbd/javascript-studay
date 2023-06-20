@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            color: red;
+            margin: 5px
+        }
+    </style>
+</head>
+
+<body>
+    The red text
+    <script>
+        alert(document.body.style.color); // empty
+        alert(document.body.style.marginTop); // empty
+        //getComputedStyle(element[, pseudo])
+
+        let computedStyle = getComputedStyle(document.body);
+        // now we can read the margin and the color from it
+        alert(computedStyle.marginTop); // 5px
+        alert(computedStyle.color); // rgb(255, 0, 0)
+
+        let styles = getComputedStyle(document.body);
+    </script>
+</body>
+
+</html>
