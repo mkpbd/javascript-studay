@@ -161,3 +161,47 @@ In the code below button shows its contents using this.innerHTML :
     button.onclick = sayThanks();
 <input type="button" id="button" onclick="sayThanks()">
 ```
+
+### Use functions, not strings
+
+The assignment elem.onclick = "alert(1)" would work too. It works for compatibility reasons, but strongly not recommended.
+
+ **Don’t use setAttribute for handlers**
+// a click on body will generate errors,
+// because attributes are always strings, function becomes a string
+document.body.setAttribute('onclick', function() { alert(1) });
+
+## addEventListener
+
+The fundamental problem of the aforementioned ways to assign handlers – we can’t assign multiple handlers to one event.
+For instance, one part of our code wants to highlight a button on click, and another one wants to show a message.
+We’d like to assign two event handlers for that. But a new DOM property will overwrite the existing one:
+
+```javascript
+input.onclick = function() { alert(1); }
+// ...
+input.onclick = function() { alert(2); } // replaces the previous handler
+```
+
+Web-standard developers understood that long ago and suggested an alternative way of managing handlers using special methods **addEventListener** and **removeEventListener** . They are free of such a problem.
+<h3 style="background:#ddd"> element.addEventListener(event, handler[, options]); </h3>
+
+**event**
+event Name e.g "click"
+
+**handler**
+
+the handler function
+
+**options**
+
+An additional optional object with properties:
+
+- once : if true , then the listener is automatically removed after it triggers.
+- capture : the phase where to handle the event, to be covered later in the
+- chapter Bubbling and capturing. For historical reasons, options can also be false/true , that’s the same as {capture: false/true} .
+- passive : if true , then the handler will not preventDefault() , we’ll cover that later in Browser default actions.
+
+To remove the handler, use removeEventListener :
+
+<h3 style="background:#ddd"> element.removeEventListener(event, handler[, options]);</h3>
