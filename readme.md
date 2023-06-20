@@ -257,3 +257,45 @@ Removes node from parentElem (assuming it’s a child)
 **node.remove()**
 Removes the node from its place.
 We can easily see that the second method is much shorter. The first one exists for historical reasons
+
+## A word about “document.write”
+
+There’s one more, very ancient method of adding something to a web-page: **document.write**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>Somewhere in the page...</p>
+    <script>
+        document.write('<b>Hello from JS</b>');
+    </script>
+    <p>The end</p>
+</body>
+
+</html>
+```
+
+The call to document.write(html) writes the html into page “right here and now”. The html string can be dynamically generated, so it’s kind of flexible.
+We can use JavaScript to create a full-fledged webpage and write it.
+
+**The call to document.write only works while the page is loading.**
+
+**Methods to create new nodes**
+-**document.createElement(tag)** – creates an element with the given tag,
+-**document.createTextNode(value)** – creates a text node (rarely used),
+-**elem.cloneNode(deep)** – clones the element, if deep==true then with all descendants.
+
+Insertion and  removal of nodes
+  -from the parent
+    -parent.appendChild(node)
+    -parent.insertBefore(node, nextSibling)
+    -parent.removeChild(node)
+    -parent.replaceChild(newElem, node)
