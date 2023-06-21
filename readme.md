@@ -201,3 +201,8 @@ The second parameter is an HTML string, that is inserted “as HTML”.
 ![1687350238648](image/readme/1687350238648.png)
 
 We can easily notice similarities between this and the previous picture. Theinsertion points are actually the same, but this method inserts HTML.
+
+The method has two brothers:
+
+1. elem.insertAdjacentText(where, text) – the same syntax, but a string of text is inserted “as text” instead of HTML,
+2. elem.insertAdjacentElement(where, elem) – the same syntax, but inserts an element.
