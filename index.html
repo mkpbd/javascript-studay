@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="module" src="./gene/app.js"></script>
+
+    <script type="module">
+      alert(import.meta.url); // script url (url of the html page for an inline script)
+    </script>
+
+    <script>
+      alert(this); // window
+    </script>
+    <script type="module">
+      alert(this); // undefined
+    </script>
+
+    <!-- all dependencies are fetched (analytics.js), and the script runs -->
+    <!-- doesn't wait for the document or other <script> tags -->
+    <script async type="module">
+      import { counter } from "./analytics.js";
+      counter.count();
+    </script>
+
+    <!-- External scripts
+There are two notable differences of external module scripts:
+1. External scripts with same src run only once: -->
+
+    <!-- the script my.js is fetched and executed only once -->
+    <script type="module" src="my.js"></script>
+    <script type="module" src="my.js"></script>
+
+    <!-- another-site.com must supply Access-Control-Allow-Origin -->
+    <!-- otherwise, the script won't execute -->
+    <script type="module" src="http://another-site.com/their.js"></script>
+
+    <script type="module">
+      alert("Runs in modern browsers");
+    </script>
+    <script nomodule>
+      alert("Modern browsers know both type=module and nomodule, so skip this");
+      alert(
+        "Old browsers ignore script with unknown type=module, but execute this."
+      );
+    </script>
+  </body>
+</html>
