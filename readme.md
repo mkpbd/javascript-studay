@@ -386,3 +386,70 @@ Writing to textContent is much more useful, because it allows to write text the 
 With innerHTML we’ll have it inserted “as HTML”, with all HTML tags. 
 
 With textContent we’ll have it inserted “as text”, all symbols are treated literally.
+
+
+## DOM properties
+
+```javascript
+document.body.myData = {
+name: 'Caesar',
+title: 'Imperator'
+};
+alert(document.body.myData.title); // Imperator
+```
+
+We can add a method as well:
+
+```javascript
+document.body.sayTagName = function() {
+alert(this.tagName);
+};
+document.body.sayTagName(); // BODY (the value of "this" in the method is docum
+```
+
+We can also modify built-in prototypes like Element.prototype and add new methods to all elements:
+
+```javascript
+Element.prototype.sayHi = function() {
+alert(`Hello, I'm ${this.tagName}`);
+};
+document.documentElement.sayHi(); // Hello, I'm HTML
+document.body.sayHi(); // Hello, I'm BODY
+```
+
+So, DOM properties and methods behave just like those of regular JavaScript objects:
+
+* They can have any value.
+* They are case-sensitive (write elem.nodeType , not elem.NoDeTyPe ).
+
+## HTML attributes
+
+In HTML, tags may have attributes. When the browser parses the HTML to create DOM objects for tags, it recognizes standard attributes and creates DOM properties from them.
+
+So when an element has id or another standard attribute, the corresponding property gets created. But that doesn’t happen if the attribute is non-standard. For instance:
+
+Please note that a standard attribute for one element can be unknown for another one. 
+
+For instance, "type" is standard for `<input>` (HTMLInputElement  ), but not for `<body>` (HTMLBodyElement  ). 
+
+Standard attributes are described in the specification for the corresponding element class.
+
+
+So, if an attribute is non-standard, there won’t be a DOM-property for it. Is there a way to access such attributes?
+
+Sure. All attributes are accessible by using the following methods:
+
+elem.hasAttribute(name) – checks for existence.
+
+elem.getAttribute(name) – gets the value.
+
+elem.setAttribute(name, value) – sets the value.
+
+elem.removeAttribute(name) – removes the attribute.
+
+***These methods operate exactly with what’s written in HTML.***
+
+
+## DOM properties are typed
+
+DOM properties are not always strings. For instance, the input.checked property (for checkboxes) is a boolean:

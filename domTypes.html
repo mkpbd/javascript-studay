@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input id="input" type="checkbox" checked /> checkbox
+    <div id="div" style="color: red; font-size: 120%">Hello</div>
+    <a id="a" href="#hello">link</a>
+    <script>
+      alert(input.getAttribute("checked")); // the attribute value is: empty string
+      alert(input.checked); // the property value is: true
+      // string
+      alert(div.getAttribute("style")); // color:red;font-size:120%
+      // object
+      alert(div.style); // [object CSSStyleDeclaration]
+      alert(div.style.color); // red
+      // attribute
+      alert(a.getAttribute("href")); // #hello
+      // property
+      alert(a.href); // full URL in the form http://site.com/page#hello
+    </script>
+  </body>
+</html>
