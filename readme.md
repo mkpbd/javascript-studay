@@ -330,3 +330,93 @@ The last way is the most flexible, but it is also the longest to write. There ar
 case of the event.
 
 No matter how you assign the handler – it gets an event object as the first argument. That object contains the details about what’s happened
+
+### device-width
+
+When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
+Let’s say we have 3 nested elements FORM > DIV > P with a handler on each of them:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubbling</title>
+    <style>
+        body * {
+            margin: 10px;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+    <form onclick="alert('form')">FORM
+        <div onclick="alert('div')">DIV
+            <p onclick="alert('p')">P</p>
+        </div>
+    </form>
+
+</body>
+
+</html>
+```
+
+![Image bubbling 1](./image/bubbling.png);
+
+A click on the inner p first runs onclick
+
+1. On that p.
+2. Then on the outer div .
+3. Then on the outer form .
+4. And so on upwards till the document object.
+
+![image bubbling 2](./image/bubbling2.png)
+
+So if we click on P then we’ll see 3 alerts: p → div → form
+The process is called “bubbling”, because events “bubble” from the inner element up through parents like a bubble in the water.
+
+**event.target**
+A handler on a parent element can always get the details about where it actually happened.
+*The most deeply nested element that caused the event is called a target element, accessible as event.target .*
+Note the differences from this (= event.currentTarget ):
+
+- event.target – is the “target” element that initiated the event, it doesn’t change through the bubbling process.
+
+- this – is the “current” element, the one that has a currently running handler on it.
+
+### Stopping bubbling
+
+A bubbling event goes from the target element straight up. Normally it goes upwards till html , and then to document object, and some events even reach window , calling all handlers on the path.
+
+But any handler may decide that the event has been fully processed and stop the bubbling.
+
+- The method for it is event.stopPropagation() .
+- For instance, here body.onclick doesn’t work if you click on button :
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Event Bubbling</title>
+</head>
+
+<body onclick="alert(`the bubbling doesn't reach here`)">
+    <button onclick="event.stopPropagation()">Click me</button>
+</body>
+
+</html>
+```
+
+### event.stopImmediatePropagation()
+
+If an element has multiple event handlers on a single event, then even if one of them stops the bubbling, the other ones still execute.
+
+In other words, event.stopPropagation() stops the move upwards, but on the current element all other handlers will run.
+
+To stop the bubbling and prevent handlers on the current element from running, there’s a method event.stopImmediatePropagation() . After it no other handlers execute.
