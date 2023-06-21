@@ -435,3 +435,81 @@ The standard [DOM Events](https://www.w3.org/TR/DOM-Level-3-Events/)  describes 
 
 Here’s the picture of a click on \<td\> inside a table, taken from the specification:
 ![image capturing](./image/eventCapturing.png)
+
+That is: for a click on *td* the event first goes through the ancestors chain down to the element (capturing phase), then it reaches the target and triggers there (target phase), and then it goes up (bubbling phase), calling handlers on its way.
+
+**Before we only talked about bubbling, because the capturing phase is rarely
+used. Normally it is invisible to us.**
+
+Handlers added using on*event* -property or using HTML attributes or using **addEventListener(event, handler)** don’t know anything about capturing, they only run on the 2nd and 3rd phases.
+
+To catch an event on the capturing phase, we need to set the handler capture option to true :
+
+```html
+elem.addEventListener(..., {capture: true})
+// or, just "true" is an alias to {capture: true}
+elem.addEventListener(..., true)
+```
+
+There are two possible values of the capture option:
+
+- If it’s false (default), then the handler is set on the bubbling phase.
+
+- If it’s true , then the handler is set on the capturing phase.
+
+```html
+    <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body * {
+            margin: 10px;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+    <form>FORM
+        <div>DIV
+            <p>P</p>
+        </div>
+    </form>
+    <script>
+        for (let elem of document.querySelectorAll('*')) {
+            elem.addEventListener("click", e => alert(`Capturing: ${elem.tagName}`), true);
+            elem.addEventListener("click", e => alert(`Bubbling: ${elem.tagName}`));
+        }
+    </script>
+</body>
+
+</html>
+```
+
+1. HTML → BODY → FORM → DIV (capturing phase, the first listener):
+
+2. P (target phrase, triggers two times, as we’ve set two listeners: capturing and bubbling)
+
+3. DIV → FORM → BODY → HTML (bubbling phase, the second listener).
+
+There’s a property event.eventPhase that tells us the number of the phase on which the event was caught. But it’s rarely used, because we usually know it in
+
+### Summary
+
+When an event happens – the most nested element where it happens gets labeled as the “target element” ( event.target ).
+
+- Then the event moves down from the document root to event.target , calling handlers assigned with addEventListener(...., true) on the way ( true is a shorthand for {capture: true} ).
+
+- Then handlers are called on the target element itself.
+
+- Then the event bubbles up from event.target up to the root, calling handlers assigned using onevent and addEventListener without the 3rd argument or with the 3rd argument false/{capture:false} .
+
+- Each handler can access event object properties: event.target – the deepest element that originated the event.
+
+- event.currentTarget (= this ) – the current element that handles the event (the one that has the handler on it)
+
+- event.eventPhase – the current phase (capturing=1, target=2, bubbling=3).
