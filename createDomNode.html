@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elements</title>
+    <style>
+        .alert {
+        padding: 15px;
+        border: 1px solid #d6e9c6;
+        border-radius: 4px;
+        color: #3c763d;
+        background-color: #dff0d8;
+        }
+        </style>
+  </head>
+  <body>
+    <section id="message"></section>
+    <script>
+      let div1 = document.createElement("div");
+      let textNode = document.createTextNode("Here I am");
+      let div = document.createElement("div");
+      div.className = "alert alert-success";
+      div.innerHTML = "<strong>Hi there!</strong> You've read an important message.";
+
+      let message = document.getElementById('message');
+      message.appendChild(div);
+    </script>
+  </body>
+</html>
