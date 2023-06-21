@@ -453,3 +453,24 @@ elem.removeAttribute(name) – removes the attribute.
 ## DOM properties are typed
 
 DOM properties are not always strings. For instance, the input.checked property (for checkboxes) is a boolean:
+
+```javascript
+<input id="input" type="checkbox" checked> checkbox
+<script>
+alert(input.getAttribute('checked')); // the attribute value is: empty string
+alert(input.checked); // the property value is: true
+</script>
+```
+
+## DataSet
+
+All attributes starting with “data-” are reserved for programmers’ use. They are available in the dataset property
+
+For instance, if an elem has an attribute named "data-about" , it’s available as elem.dataset.about .
+
+```javascript
+<body data-about="Elephants">
+<script>
+alert(document.body.dataset.about); // Elephants
+</script>
+```

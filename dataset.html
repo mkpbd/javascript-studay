@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataSet</title>
+    <style>
+        .order[data-order-state="new"] {
+        color: green;
+        }
+        .order[data-order-state="pending"] {
+        color: blue;
+        }
+        .order[data-order-state="canceled"] {
+        color: red;
+        }
+        </style>
+</head>
+<body data-about="Elephants">
+    <div id="order" class="order" data-order-state="new">
+        A new order.
+    </div>
+
+    <script>
+    alert(document.body.dataset.about); // Elephants
+    // read
+    alert(order.dataset.orderState); // new
+    // modify
+    order.dataset.orderState = "pending"; // (*)
+    </script>
+</html>
