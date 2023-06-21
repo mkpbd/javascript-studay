@@ -354,3 +354,35 @@ The outerHTML property contains the full HTML of the element. That’s like *inn
 </html>
 
 ```
+
+## textContent: pure text
+
+The textContent provides access to the text inside the element: only text, minus all `<tags>` .
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>text Content</title>
+  </head>
+  <body>
+    <div id="news">
+      <h1>Headline!</h1>
+      <p>Martians attack people!</p>
+    </div>
+    <script>
+      // Headline! Martians attack people!
+      alert(news.textContent);
+    </script>
+  </body>
+</html>
+
+```
+
+Writing to textContent is much more useful, because it allows to write text the “safe way”.
+
+With innerHTML we’ll have it inserted “as HTML”, with all HTML tags. 
+
+With textContent we’ll have it inserted “as text”, all symbols are treated literally.
