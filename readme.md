@@ -513,3 +513,16 @@ When an event happens – the most nested element where it happens gets labeled 
 - event.currentTarget (= this ) – the current element that handles the event (the one that has the handler on it)
 
 - event.eventPhase – the current phase (capturing=1, target=2, bubbling=3).
+
+### Event delegation
+
+Capturing and bubbling allow us to implement one of most powerful event handling patterns called event delegation.
+
+In the handler we get event.target , see where the event actually happened and handle it.
+
+**Our task is to highlight a cell \<td\> on click**.
+
+Instead of assign an onclick handler to each \<td\> (can be many) – we’ll
+setup the “catch-all” handler on \<table\> element.
+It will use event.target to get the clicked element and highlight it.
+The code:
