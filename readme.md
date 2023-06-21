@@ -420,3 +420,18 @@ If an element has multiple event handlers on a single event, then even if one of
 In other words, event.stopPropagation() stops the move upwards, but on the current element all other handlers will run.
 
 To stop the bubbling and prevent handlers on the current element from running, there’s a method event.stopImmediatePropagation() . After it no other handlers execute.
+
+### capturing
+
+There’s another phase of event processing called “capturing”. It is rarely used in real code, but sometimes can be useful.
+
+The standard [DOM Events](https://www.w3.org/TR/DOM-Level-3-Events/)  describes 3 phases of event propagation:
+
+1. Capturing phase – the event goes down to the element.
+
+2. Target phase – the event reached the target element.
+
+3. Bubbling phase – the event bubbles up from the element.
+
+Here’s the picture of a click on \<td\> inside a table, taken from the specification:
+![image capturing](./image/eventCapturing.png)
