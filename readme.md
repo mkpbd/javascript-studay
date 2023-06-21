@@ -112,17 +112,107 @@ Ancestors of an element are: parent, the parent of parent, its parent and so on.
 The method **elem.closest(css)** looks the nearest ancestor that matches the CSS-selector. The elem itself is also included in the search.
 
 ```html
-<h1>Contents</h1>
-<div class="contents">
-  <ul class="book">
-     <li class="chapter">Chapter 1</li>
-     <li class="chapter">Chapter 1</li>
-  </ul>
-</div>
-<script>
-	let chapter = document.querySelector('.chapter'); // LI
-	alert(chapter.closest('.book')); // UL
-	alert(chapter.closest('.contents')); // DIV
-	alert(chapter.closest('h1')); // null (because h1 is not an ancestor)
-</script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Contents</h1>
+    <div class="contents">
+      <ul class="book">
+        <li class="chapter">Chapter 1</li>
+        <li class="chapter">Chapter 1</li>
+      </ul>
+    </div>
+    <script>
+      let chapter = document.querySelector(".chapter"); // LI
+      alert(chapter.closest(".book")); // UL
+      alert(chapter.closest(".contents")); // DIV
+      alert(chapter.closest("h1")); // null (because h1 is not an ancestor)
+    </script>
+  </body>
+</html>
+```
+
+## getElementsBy*
+
+There are also other methods to look for nodes by a tag, class, etc.
+Today, they are mostly history, as querySelector is more powerful and shorter to write.
+So here we cover them mainly for completeness, while you can still find them in the old scripts.
+
+* elem.getElementsByTagName(tag) looks for elements with the given tag and returns the collection of them. The tag parameter can also be a star "*" for “any tags”.
+* elem.getElementsByClassName(className) returns elements that have the given CSS class.
+* document.getElementsByName(name) returns elements with the given name attribute, document-wide. very rarely used.
+
+// get all divs in the document
+**let divs = document.getElementsByTagName('div');**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Elements By TagName</title>
+  </head>
+  <body>
+    <table id="table">
+      <tr>
+        <td>Your age:</td>
+        <td>
+          <label>
+            <input type="radio" name="age" value="young" checked /> less than 18
+          </label>
+          <label> </label>
+          <label>
+            <input type="radio" name="age" value="senior" /> more than 60
+          </label>
+        </td>
+      </tr>
+    </table>
+    <script>
+      let inputs = table.getElementsByTagName("input");
+      for (let input of inputs) {
+        alert(input.value + ": " + input.checked);
+      }
+    </script>
+  </body>
+</html>
+
+```
+
+**It returns a collection, not an element!**
+
+// doesn't work
+document.getElementsByTagName('input').value = 5;
+
+// should work (if there's an input)
+document.getElementsByTagName('input')[0].value = 5;
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form name="my-form">
+      <div class="article">Article</div>
+      <div class="long article">Long article</div>
+    </form>
+    <script>
+      // find by name attribute
+      let form = document.getElementsByName("my-form")[0];
+      // find by class inside the form
+      let articles = form.getElementsByClassName("article");
+      alert(articles.length); // 2, found two elements with class "article"
+    </script>
+  </body>
+</html>
+
 ```

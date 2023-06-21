@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form name="my-form">
+      <div class="article">Article</div>
+      <div class="long article">Long article</div>
+    </form>
+    <script>
+      // find by name attribute
+      let form = document.getElementsByName("my-form")[0];
+      // find by class inside the form
+      let articles = form.getElementsByClassName("article");
+      alert(articles.length); // 2, found two elements with class "article"
+    </script>
+  </body>
+</html>
