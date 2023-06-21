@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>handleEvent</title>
+</head>
+
+<body>
+    <button id="elem">Click me</button>
+    <script>
+        class Menu {
+            handleEvent(event) {
+                switch (event.type) {
+                    case 'mousedown':
+                        elem.innerHTML = "Mouse button pressed";
+                        break;
+                    case 'mouseup':
+                        elem.innerHTML += "...and released.";
+                        break;
+                }
+            }
+        }
+        let menu = new Menu();
+        elem.addEventListener('mousedown', menu);
+        elem.addEventListener('mouseup', menu);
+    </script>
+</body>
+
+</html>

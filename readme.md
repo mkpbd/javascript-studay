@@ -205,3 +205,112 @@ An additional optional object with properties:
 To remove the handler, use removeEventListener :
 
 <h3 style="background:#212121"> element.removeEventListener(event, handler[, options]);</h3>
+
+```javascript
+elem.addEventListener( "click" , () => alert('Thanks!'));
+// ....
+elem.removeEventListener( "click", () => alert('Thanks!'));
+```
+
+```javascript
+function handler() {
+alert( 'Thanks!' );
+}
+input.addEventListener("click", handler);
+// ....
+input.removeEventListener("click", handler);
+```
+
+Please note – if we don’t store the function in a variable, then we can’t remove it. There’s no way to “read back” handlers assigned by **addEventListener**
+
+Multiple calls to addEventListener allow to add multiple handlers, like this:
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="elem" type="button" value="Click me" />
+    <script>
+        function handler1() {
+            alert('Thanks!');
+        };
+        function handler2() {
+            alert('Thanks again!');
+        }
+        elem.onclick = () => alert("Hello");
+        elem.addEventListener("click", handler1); // Thanks!
+        elem.addEventListener("click", handler2); // Thanks again!
+    </script>
+</body>
+
+</html>
+```
+
+**For some events, handlers only work with addEventListener**
+There exist events that can’t be assigned via a DOM-property. Must use **addEventListener**
+
+### Event object
+
+To properly handle an event we’d want to know more about what’s happened. Not just a “click” or a “keypress”, but what were the pointer coordinates? Which key was pressed? And so on.
+When an event happens, the browser creates an event object, puts details into it and passes it as an argument to the handler.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event object</title>
+</head>
+
+<body>
+    <input type="button" value="Click me" id="elem">
+    <script>
+        elem.onclick = function (event) {
+            // show event type, element and coordinates of the click
+            alert(event.type + " at " + event.currentTarget);
+            alert("Coordinates: " + event.clientX + ":" + event.clientY);
+        };
+    </script>
+</body>
+
+</html>
+```
+
+### Object handlers: handleEvent
+
+We can assign an object as an event handler using addEventListener . When an event occurs, its handleEvent method is called with it.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object handlers: handleEvent</title>
+</head>
+
+<body>
+    <button id="elem">Click me</button>
+    <script>
+        elem.addEventListener('click', {
+            handleEvent(event) {
+                alert(event.type + " at " + event.currentTarget);
+            }
+        });
+    </script>
+</body>
+
+</html>
+```
+
+In other words, when addEventListener receives an object as the handler, it calls object.handleEvent(event) in case of an event.

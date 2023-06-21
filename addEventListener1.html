@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            transition: width 1s;
+            width: 100px;
+        }
+
+        .wide {
+            width: 300px;
+        }
+    </style>
+</head>
+<input type="button" id="elem" onclick="this.classList.toggle('wide')" value="Some">
+<script>
+    elem.ontransitionend = function () {
+        alert("DOM property"); // doesn't work
+    };
+    elem.addEventListener("transitionend", function () {
+        alert("addEventListener"); // shows up when the animation finishes
+    });
+</script>
+
+<body>
+
+</body>
+
+</html>
