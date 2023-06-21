@@ -240,9 +240,12 @@ And let’s mention one more method here to check for the child-parent relations
 The classes are:
 [EventTarget  ](https://dom.spec.whatwg.org/#eventtarget)– is the root “abstract” class. Objects of that class are never
 created. It serves as a base, so that all DOM nodes support so-called “events”, we’ll study them later.
+
 [Node](https://dom.spec.whatwg.org/#interface-element)  – is also an “abstract” class, serving as a base for DOM nodes. It provides the core tree functionality:* **parentNode , nextSibling , childNodes*** and so on (they are getters). Objects of Node class are never created. But there are concrete node classes that inherit from it, namely: Text
 for text nodes, Element for element nodes and more exotic ones like Comment for comment nodes.
+
 [Element  ](https://dom.spec.whatwg.org/#interface-element)– is a base class for DOM elements. It provides element-level navigation like nextElementSibling , children and searching methods like getElementsByTagName , querySelector . A browser supports not only HTML, but also XML and SVG. The Element class serves as a base for more specific classes: SVGElement , XMLElement and HTMLElement .
+
 [HTMLElement ](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) – is finally the basic class for all HTML elements. It is  inherited by various HTML elements:
 
 
@@ -255,9 +258,13 @@ To see the DOM node class name, we can recall that an object usually has the con
 We also can use instanceof to check the inheritance
 
 alert( document.body instanceof HTMLBodyElement ); // true
+
 alert( document.body instanceof HTMLElement ); // true
+
 alert( document.body instanceof Element ); // true
+
 alert( document.body instanceof Node ); // true
+
 alert( document.body instanceof EventTarget ); // true
 
 
@@ -280,6 +287,7 @@ alert( document.nodeType ); // 9
 Given a DOM node, we can read its tag name from ***nodeName* **or ***tagName* **properties:
 
 alert( document.body.nodeName ); // BODY
+
 alert( document.body.tagName ); // BODY
 
 ```html
@@ -320,6 +328,29 @@ The example shows the contents of document.body and then replaces it completely:
 ```
 
 chatDiv.innerHTML += "`<div>`Hello `<img src='smile.gif'/>` !`</div>`";
+
 chatDiv.innerHTML += "How goes?";
 
 But we should be very careful about doing it, because what’s going on is not an addition, but a full overwrite.
+
+## outerHTML: full HTML of the element
+
+The outerHTML property contains the full HTML of the element. That’s like *innerHTML* plus the element itself.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>outerHTML</title>
+  </head>
+  <body>
+    <div id="elem">Hello <b>World</b></div>
+    <script>
+      alert(elem.outerHTML); // <div id="elem">Hello <b>World</b></div>
+    </script>
+  </body>
+</html>
+
+```
