@@ -474,3 +474,13 @@ For instance, if an elem has an attribute named "data-about" , it’s available 
 alert(document.body.dataset.about); // Elephants
 </script>
 ```
+
+Attributes – is what’s written in HTML.
+
+
+Properties – is what’s in DOM objects.
+
+|      | Properties                                                      | Attributes                 |
+| ---- | --------------------------------------------------------------- | -------------------------- |
+| Type | Any value, standard properties have types described in the spec | A string                   |
+| Name | Name is case-sensitive                                          | Name is not case-sensitive |
