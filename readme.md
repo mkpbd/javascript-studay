@@ -83,3 +83,32 @@ Appends node as the last child of parentElem . The following example adds a new 
 </html>
 
 ```
+
+**parentElem.insertBefore(node, nextSibling)**
+
+Inserts node before nextSibling into parentElem . The following code inserts a new list item before the second `<li>` :
+
+```javascript
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parent Element Before Insert</title>
+  </head>
+  <body>
+    <ol id="list">
+      <li>0</li>
+      <li>1</li>
+      <li>2</li>
+    </ol>
+    <script>
+      let newLi = document.createElement("li");
+      newLi.innerHTML = "Hello, world!";
+      list.insertBefore(newLi, list.children[1]);
+    </script>
+  </body>
+</html>
+
+```
