@@ -112,3 +112,92 @@ Inserts node before nextSibling into parentElem . The following code inserts a n
 </html>
 
 ```
+
+**parentElem.replaceChild(node, oldChild)**
+
+Replaces oldChild with node among children of parentElem
+
+All these methods return the inserted node. In other words, parentElem.appendChild(node) returns node . But usually the returned value is not used, we just run the method.
+
+
+***prepend/append/before/after***
+
+This set of methods provides more flexible insertions:
+
+1. node.append(...nodes or strings) – append nodes or strings at the end of node ,
+2. node.prepend(...nodes or strings) – insert nodes or strings into the beginning of node ,
+3. node.before(...nodes or strings) –- insert nodes or strings before the node ,
+4. node.after(...nodes or strings) –- insert nodes or strings after the node ,
+5. node.replaceWith(...nodes or strings) –- replaces node with the given nodes or strings.
+
+All of them accept a list of DOM nodes and/or text strings. If a string is given it’s inserted as a text node.
+
+Here’s an example of using these methods to add more items to a list and the text before/after it:
+
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ol id="ol">
+      <li>0</li>
+      <li>1</li>
+      <li>2</li>
+    </ol>
+    <script>
+      ol.before("before");
+      ol.after("after");
+      let prepend = document.createElement("li");
+      prepend.innerHTML = "prepend";
+      ol.prepend(prepend);
+      let append = document.createElement("li");
+      append.innerHTML = "append";
+      ol.append(append);
+    
+    </script>
+  </body>
+</html>
+
+```
+
+[![1687349952323](image/readme/1687349952323.png)]()
+
+***insertAdjacentHTML/Text/Element***
+
+The first parameter is a code word, specifying where to insert relative to elem .
+Must be one of the following:
+
+1. "beforebegin" – insert html immediately before elem ,
+2. "afterbegin" – insert html into elem , at the beginning,"
+3. beforeend" – insert html into elem , at the end,
+4. "afterend" – insert html immediately after elem .
+
+The second parameter is an HTML string, that is inserted “as HTML”.
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="div"></div>
+    <script>
+      div.insertAdjacentHTML("beforebegin", "<p>Hello</p>");
+      div.insertAdjacentHTML("afterend", "<p>Bye</p>");
+    </script>
+  </body>
+</html>
+
+```
+
+![1687350238648](image/readme/1687350238648.png)
+
+We can easily notice similarities between this and the previous picture. Theinsertion points are actually the same, but this method inserts HTML.
