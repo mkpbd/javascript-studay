@@ -216,3 +216,110 @@ document.getElementsByTagName('input')[0].value = 5;
 </html>
 
 ```
+
+| Method                                    | Searches by... | Can call on an element? | Live? |
+| ----------------------------------------- | -------------- | ----------------------- | ----- |
+| querySelector                             | CSS-selector   | ✔                      | -     |
+| querySelectorAll                          | CSS-selector   | ✔                      | -     |
+| getElementById                            | id             | -                       | -     |
+| getElementsByName                         | name           | -                       | ✔    |
+| getElementsByTagName                      | tag or '*'     | ✔                      | ✔    |
+| getElementsByClassName             | class          | ✔                      | ✔    |
+
+By far the most used are querySelector and querySelectorAll , but **getElementBy*** can be sporadically helpful or found in the old scripts. Besides that:
+There is ***elem.matches(css***) to check if elem matches the given CSS selector.
+There is *elem.closest(css)* to look for the nearest ancestor that matches the given **CSS-selector**. The elem itself is also checked.
+And let’s mention one more method here to check for the child-parent relationship, as it’s sometimes useful:
+***elemA.contains(elemB***) returns true if elemB is inside elemA (a descendant of elemA ) or when elemA==elemB .
+
+
+
+
+![1687343116894](image/readme/1687343116894.png)
+
+The classes are:
+[EventTarget  ](https://dom.spec.whatwg.org/#eventtarget)– is the root “abstract” class. Objects of that class are never
+created. It serves as a base, so that all DOM nodes support so-called “events”, we’ll study them later.
+[Node](https://dom.spec.whatwg.org/#interface-element)  – is also an “abstract” class, serving as a base for DOM nodes. It provides the core tree functionality:* **parentNode , nextSibling , childNodes*** and so on (they are getters). Objects of Node class are never created. But there are concrete node classes that inherit from it, namely: Text
+for text nodes, Element for element nodes and more exotic ones like Comment for comment nodes.
+[Element  ](https://dom.spec.whatwg.org/#interface-element)– is a base class for DOM elements. It provides element-level navigation like nextElementSibling , children and searching methods like getElementsByTagName , querySelector . A browser supports not only HTML, but also XML and SVG. The Element class serves as a base for more specific classes: SVGElement , XMLElement and HTMLElement .
+[HTMLElement ](https://html.spec.whatwg.org/multipage/dom.html#htmlelement) – is finally the basic class for all HTML elements. It is  inherited by various HTML elements:
+
+
+To see the DOM node class name, we can recall that an object usually has the constructor property. It references to the class constructor, and constructor.name is its name:
+
+*alert( document.body.constructor.name ); // HTMLBodyElement*
+
+*alert( document.body ); // [object HTMLBodyElement]*
+
+We also can use instanceof to check the inheritance
+
+alert( document.body instanceof HTMLBodyElement ); // true
+alert( document.body instanceof HTMLElement ); // true
+alert( document.body instanceof Element ); // true
+alert( document.body instanceof Node ); // true
+alert( document.body instanceof EventTarget ); // true
+
+
+```html
+<body>
+<script>
+let elem = document.body;
+// let's examine what it is?
+alert(elem.nodeType); // 1 => element
+// and the first child is...
+alert(elem.firstChild.nodeType); // 3 => text
+// for the document object, the type is 9
+alert( document.nodeType ); // 9
+</script>
+</body>
+```
+
+## Tag: nodeName and tagName
+
+Given a DOM node, we can read its tag name from ***nodeName* **or ***tagName* **properties:
+
+alert( document.body.nodeName ); // BODY
+alert( document.body.tagName ); // BODY
+
+```html
+<body><!-- comment -->
+<script>
+  // for comment
+  alert( document.body.firstChild.tagName ); // undefined (not an element)
+  alert( document.body.firstChild.nodeName ); // #comment
+  // for document
+  alert( document.tagName ); // undefined (not an element)
+  alert( document.nodeName ); // #document
+</script>
+</body
+```
+
+## ***innerHTML: the contents***
+
+property allows to get the HTML inside the element as a string. We can also modify it. So it’s one of most powerful ways to change the page.
+The example shows the contents of document.body and then replaces it completely:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>innerHTML</title>
+  </head>
+  <body>
+    <p>A paragraph</p>
+    <div>A div</div>
+    <script>
+      alert(document.body.innerHTML); // read the current contents
+      document.body.innerHTML = "The new BODY!"; // replace it
+    </script>
+  </body>
+</html>
+```
+
+chatDiv.innerHTML += "`<div>`Hello `<img src='smile.gif'/>` !`</div>`";
+chatDiv.innerHTML += "How goes?";
+
+But we should be very careful about doing it, because what’s going on is not an addition, but a full overwrite.
