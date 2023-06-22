@@ -786,3 +786,48 @@ or
 </html>
 
 ```
+
+
+### Prevent further events
+
+Certain events flow one into another. If we prevent the first event, there will be no second.
+
+For instance, mousedown on an `<input>` field leads to focusing in it, and the focus event. If we prevent the mousedown event, there’s no focus.
+Try to click on the first `<input>` below – the focus event happens. That's normal. But if you click the second one, there’s no focus.
+
+```html
+<input value="Focus works" onfocus="this.value=''">
+<input onmousedown="return false" onfocus="this.value=''" value="Click me">
+```
+
+That’s because the browser action is canceled on mousedown . The focusing is still possible if we use another way to enter the input. For instance, the Tab key to switch from the 1st input into the 2nd. But not with the mouse click any more.
+
+**The “passive” handler option**
+
+The optional passive: true option of addEventListener signals the browser that the handler is not going to call **preventDefault()** . Why that may be needed?
+
+### event.defaultPrevented
+
+The property **event.defaultPrevented** is true if the default action was  prevented, and false otherwise.
+
+```html
+<button>Right-click for browser context menu</button>
+<button oncontextmenu="alert('Draw our menu'); return false">
+Right-click for our context menu
+</button>
+```
+
+```html
+<p>Right-click here for the document context menu</p>
+<button id="elem">Right-click here for the button context menu</button>
+<script>
+elem.oncontextmenu = function(event) {
+event.preventDefault();
+alert("Button context menu");
+};
+document.oncontextmenu = function(event) {
+event.preventDefault();
+alert("Document context menu");
+};
+</script>
+```

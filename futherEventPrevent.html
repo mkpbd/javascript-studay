@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prevent further events</title>
+  </head>
+  <body>
+    <input value="Focus works" onfocus="this.value=''" />
+    <input
+      onmousedown="return false"
+      onfocus="this.value=''"
+      value="Click me"
+    />
+  </body>
+</html>

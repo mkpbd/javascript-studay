@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event default prevent</title>
+  </head>
+  <body>
+    <button>Right-click for browser context menu</button>
+    <button oncontextmenu="alert('Draw our menu'); return false">
+      Right-click for our context menu
+    </button>
+    <p>Right-click here for the document context menu</p>
+    <button id="elem">Right-click here for the button context menu</button>
+    <script>
+      elem.oncontextmenu = function (event) {
+        event.preventDefault();
+        alert("Button context menu");
+      };
+      document.oncontextmenu = function (event) {
+        event.preventDefault();
+        alert("Document context menu");
+      };
+    </script>
+  </body>
+</html>
