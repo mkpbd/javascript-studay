@@ -7,19 +7,15 @@ An event is a signal that something has happened. All DOM nodes generate such si
 ### Mouse events
 
 - click – when the mouse clicks on an element (touchscreen devices generate it on a tap).
-
 - contextmenu – when the mouse right-clicks on an element.
-
 - mouseover / mouseout – when the mouse cursor comes over / leaves an element.
-
 - mousedown / mouseup – when the mouse button is pressed / released over an element.
-
 - mousemove – when the mouse is moved.
 
 ### Form element events
 
-- submit – when the visitor submits a <form> .
-- focus – when the visitor focuses on an element, e.g. on an <input> .
+- submit – when the visitor submits a `<form>` .
+- focus – when the visitor focuses on an element, e.g. on an `<input>` .
 
 ### Keyboard events
 
@@ -43,15 +39,15 @@ There are several ways to assign a handler. Let’s see them, starting from the 
 
 ### HTML-attribute
 
-A handler can be set in HTML with an attribute named on **<event>**.
+A handler can be set in HTML with an attribute named on **`<event>`**.
 
 For instance, to assign a click handler for an input , we can use onclick , like here:
 
- ```javascript
+```javascript
  <input value = "Clickme" onclick = "alert( 'Click!' ) " type="button">
- ```
+```
 
-``` html
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -112,7 +108,7 @@ The handler is always in the DOM property: the HTML-attribute is just one of the
 
 ### 2. HTML + JS
 
-``` html
+```html
 <input type="button" id="button" value="Button">
 <script>
 button.onclick = function() {
@@ -184,6 +180,7 @@ input.onclick = function() { alert(2); } // replaces the previous handler
 ```
 
 Web-standard developers understood that long ago and suggested an alternative way of managing handlers using special methods **addEventListener** and **removeEventListener** . They are free of such a problem.
+
 <h3 style="background:#ddd"> element.addEventListener(event, handler[, options]); </h3>
 
 **event**
@@ -384,7 +381,6 @@ A handler on a parent element can always get the details about where it actually
 Note the differences from this (= event.currentTarget ):
 
 - event.target – is the “target” element that initiated the event, it doesn’t change through the bubbling process.
-
 - this – is the “current” element, the one that has a currently running handler on it.
 
 ### Stopping bubbling
@@ -428,9 +424,7 @@ There’s another phase of event processing called “capturing”. It is rarely
 The standard [DOM Events](https://www.w3.org/TR/DOM-Level-3-Events/)  describes 3 phases of event propagation:
 
 1. Capturing phase – the event goes down to the element.
-
 2. Target phase – the event reached the target element.
-
 3. Bubbling phase – the event bubbles up from the element.
 
 Here’s the picture of a click on \<td\> inside a table, taken from the specification:
@@ -454,7 +448,6 @@ elem.addEventListener(..., true)
 There are two possible values of the capture option:
 
 - If it’s false (default), then the handler is set on the bubbling phase.
-
 - If it’s true , then the handler is set on the capturing phase.
 
 ```html
@@ -491,9 +484,7 @@ There are two possible values of the capture option:
 ```
 
 1. HTML → BODY → FORM → DIV (capturing phase, the first listener):
-
 2. P (target phrase, triggers two times, as we’ve set two listeners: capturing and bubbling)
-
 3. DIV → FORM → BODY → HTML (bubbling phase, the second listener).
 
 There’s a property event.eventPhase that tells us the number of the phase on which the event was caught. But it’s rarely used, because we usually know it in
@@ -503,15 +494,10 @@ There’s a property event.eventPhase that tells us the number of the phase on w
 When an event happens – the most nested element where it happens gets labeled as the “target element” ( event.target ).
 
 - Then the event moves down from the document root to event.target , calling handlers assigned with addEventListener(...., true) on the way ( true is a shorthand for {capture: true} ).
-
 - Then handlers are called on the target element itself.
-
 - Then the event bubbles up from event.target up to the root, calling handlers assigned using onevent and addEventListener without the 3rd argument or with the 3rd argument false/{capture:false} .
-
 - Each handler can access event object properties: event.target – the deepest element that originated the event.
-
 - event.currentTarget (= this ) – the current element that handles the event (the one that has the handler on it)
-
 - event.eventPhase – the current phase (capturing=1, target=2, bubbling=3).
 
 ### Event delegation
@@ -522,7 +508,281 @@ In the handler we get event.target , see where the event actually happened and h
 
 **Our task is to highlight a cell \<td\> on click**.
 
-Instead of assign an onclick handler to each \<td\> (can be many) – we’ll
-setup the “catch-all” handler on \<table\> element.
-It will use event.target to get the clicked element and highlight it.
-The code:
+Instead of assign an onclick handler to each \<td\> (can be many) – we’ll setup the “catch-all” handler on \<table\> element.
+It will use event.target to get the clicked element and highlight it. The code:
+
+In the handler we get event.target , see where the event actually happened and handle it.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table id="table">
+        <tr border="1">
+            <th colspan="3"><em>Bagua</em> Chart: Direction, Element, Color, Meaning</th>
+        </tr>
+        <tr>
+            <td>...<strong>Northwest</strong>...</td>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+        <tr>...2 more lines of this kind...</tr>
+        <tr>...2 more lines of this kind...</tr>
+    </table>
+
+    <script>
+        let selectedTd;
+        let table = document.getElementById("table");
+        table.onclick = function (event) {
+            let target = event.target; // where was the click?
+            if (target.tagName != 'TD') return; // not on TD? Then we're not interested
+            highlight(target); // highlight it
+        };
+        function highlight(td) {
+            if (selectedTd) { // remove the existing highlight if any
+                selectedTd.classList.remove('highlight');
+            }
+            selectedTd = td;
+            selectedTd.classList.add('highlight'); // highlight the new td
+        }
+    </script>
+</body>
+
+</html>
+```
+
+
+Such a code doesn’t care how many cells there are in the table. We can add/remove `<td>` dynamically at any time and the highlighting will still work.
+Still, there’s a drawback. The click may occur not on the `<td>` , but inside it. In our case if we take a look inside the HTML, we can see nested tags inside
+
+```html
+<td>
+	<strong>Northwest</strong>
+...
+</td>
+```
+
+
+Naturally, if a click happens on that `<strong>` then it becomes the value of event.target .
+
+![1687414108562](image/readme/1687414108562.png)
+
+In the handler table.onclick we should take such event.target and find out whether the click was inside `<td>` or not.
+Here’s the improved code:
+
+```html
+table.onclick = function(event) {
+let td = event.target.closest('td'); // (1)
+if (!td) return; // (2)
+if (!table.contains(td)) return; // (3)
+highlight(td); // (4)
+};
+```
+
+
+1. The method elem.closest(selector) returns the nearest ancestor that matches the selector. In our case we look for `<td>` on the way up from the source element.
+2. If event.target is not inside any `<td>` , then the call returns null , and we don’t have to do anything.
+3. In case of nested tables, event.target may be a `<td>` lying outside of the current table. So we check if that’s actually our table’s `<td>` .
+4. And, if it’s so, then highlight it.
+
+**Delegation example: actions in markup**
+
+The event delegation may be used to optimize event handling. We use a single handler for similar actions on many elements. Like we did it for highlighting `<td>` .
+
+But we can also use a single handler as an entry point for many different things. For instance, we want to make a menu with buttons “Save”, “Load”, “Search” and  so on. 
+
+And there’s an object with methods save , load , search …. The first idea may be to assign a separate handler to each button. But there’s a more elegant solution.
+
+We can add a handler for the whole menu and dataaction attributes for buttons that has the method to call:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Delegation 2</title>
+  </head>
+  <body>
+    <div id="menu">
+      <button data-action="save">Save</button>
+      <button data-action="load">Load</button>
+      <button data-action="search">Search</button>
+    </div>
+    <script>
+      class Menu {
+        constructor(elem) {
+          this._elem = elem;
+          elem.onclick = this.onClick.bind(this); // (*)
+        }
+        save() {
+          alert("saving");
+        }
+        load() {
+          alert("loading");
+        }
+        search() {
+          alert("searching");
+        }
+        onClick(event) {
+          let action = event.target.dataset.action;
+          if (action) {
+            this[action]();
+          }
+        }
+      }
+      new Menu(menu);
+    </script>
+  </body>
+</html>
+
+```
+
+Please note that **this.onClick** is bound to this in **(*)** . That’s important, because otherwise this inside it would reference the DOM element ( elem ), not the menu object, and **this[action]** would not be what we need.  So, what the delegation gives us here?
+
+We could also use classes .**action-save , .action-load** , but an attribute **data-action** is better semantically. And we can use it in CSS rules too.
+
+**Counter**
+
+For instance, here the attribute data-counter adds a behavior: “increase value on click” to buttons:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventDelegation</title>
+  </head>
+  <body>
+    Counter: <input type="button" value="1" data-counter /> One more counter:
+    <input type="button" value="2" data-counter />
+    <script>
+      document.addEventListener("click", function (event) {
+        if (event.target.dataset.counter != undefined) {
+          // if the attribute exists..
+          event.target.value++;
+        }
+      });
+    </script>
+  </body>
+</html>
+
+```
+
+
+If we click a button – its value is increased. Not buttons, but the general approach is important here.
+
+There can be as many attributes with **data-counter** as we want. We can add new ones to HTML at any moment. Using the event delegation we “extended” HTML, added an attribute that describes a new behavior.
+
+
+**Toggler**
+
+
+One more example. A click on an element with the attribute **data-toggle-id** will show/hide the element with the **given id** :
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Delegation</title>
+  </head>
+  <body>
+    <button data-toggle-id="subscribe-mail">Show the subscription form</button>
+    <form id="subscribe-mail" hidden>Your mail: <input type="email" /></form>
+    <script>
+      document.addEventListener("click", function (event) {
+        let id = event.target.dataset.toggleId;
+        if (!id) return;
+        let elem = document.getElementById(id);
+        elem.hidden = !elem.hidden;
+      });
+    </script>
+  </body>
+</html>
+
+```
+
+Let’s note once again what we did. Now, to add toggling functionality to an element – there’s no need to know JavaScript, just use the attribute **datatoggle-id** .
+
+That may become really convenient – no need to write JavaScript for every such element. Just use the behavior. The document-level handler makes it work for any element of the page.
+
+We can combine multiple behaviors on a single element as well. The “behavior” pattern can be an alternative of mini-fragments of JavaScript.
+
+## Summary
+
+Event delegation is really cool! It’s one of the most helpful patterns for DOM events.
+
+It’s often used to add same handling for many similar elements, but not only for that.
+
+The algorithm:
+
+1. Put a single handler on the container.
+2. In the handler – check the source element event.target .
+3. If the event happened inside an element that interests us, then handle the event.
+
+Benefits:
+
+Simplifies initialization and saves memory: no need to add many handlers.
+
+Less code: when adding or removing elements, no need to add/remove handlers.
+
+DOM modifications: we can mass add/remove elements with innerHTML and alike.
+
+**The delegation has its limitations of course:**
+
+1. First, the event must be bubbling. Some events do not bubble. Also, low-level handlers should not use **event.stopPropagation()** .
+2. Second, the delegation may add CPU load, because the container-level handler reacts on events in any place of the container, no matter if they
+   interest us or not. But usually the load is negligible, so we don’t take it into account.
+
+## Preventing browser actions
+
+There are two ways to tell the browser we don’t want it to act:
+
+1. The main way is to use the event object. There’s a method **event.preventDefault()** .
+2. If the handler is assigned using on `<event>` (not by addEventListener ), then we can just return false from it.
+
+In the example below a click to links doesn’t lead to URL change:
+
+```javascript
+<a href="/" onclick="return false">Click here</a>
+or
+<a href="/" onclick="event.preventDefault()">here</a>
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prevent browser default Actions</title>
+  </head>
+  <body>
+    <ul id="menu" class="menu">
+      <li><a href="/html">HTML</a></li>
+      <li><a href="/javascript">JavaScript</a></li>
+      <li><a href="/css">CSS</a></li>
+    </ul>
+
+    <script>
+      menu.onclick = function (event) {
+        if (event.target.nodeName != "A") return;
+        let href = event.target.getAttribute("href");
+        alert(href); // ...can be loading from the server, UI generation etc
+        return false; // prevent browser action (don't go to the URL)
+      };
+    </script>
+  </body>
+</html>
+
+```
