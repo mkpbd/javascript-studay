@@ -875,3 +875,118 @@ let event = new Event("click");
 elem.dispatchEvent(event);
 </script>
 ```
+
+**Bubbling**
+
+We can create a bubbling event with the name "hello" and catch it on document
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bubbling example</title>
+  </head>
+  <body>
+    <h1 id="elem">Hello from the script!</h1>
+    <script>
+      // catch on document...
+      document.addEventListener("hello", function (event) {
+        // (1)
+        alert("Hello from " + event.target.tagName); // Hello from H1
+      });
+      // ...dispatch on elem!
+      let event = new Event("hello", { bubbles: true }); // (2)
+      elem.dispatchEvent(event);
+    </script>
+  </body>
+</html>
+
+```
+
+
+1. We should use addEventListener for our custom events, because on `<event>` only exists for built-in events, document.onhello doesn't work.
+2. Must set bubbles:true , otherwise the event won't bubble up. The bubbling mechanics is the same for built-in ( click ) and custom ( hello ) events. There are also capturing and bubbling stages.
+
+### MouseEvent, KeyboardEvent and others
+
+Here’s a short list of classes for UI Events from the[ UI Event](https://www.w3.org/TR/uievents/) specification
+
+- UIEvent
+- FocusEvent
+- MouseEvent
+- WheelEvent
+- KeyboardEvent
+
+```javascript
+let event = new MouseEvent("click", {
+bubbles: true,
+cancelable: true,
+clientX: 100,
+clientY: 100
+});
+alert(event.clientX); // 100
+```
+
+```javascript
+let event = new Event("click", {
+bubbles: true, // only bubbles and cancelable
+cancelable: true, // work in the Event constructor
+clientX: 100,
+clientY: 100
+});
+alert(event.clientX); // undefined, the unknown property is ignored!
+```
+
+The full list of properties for different [UI events](https://www.w3.org/TR/uievents/#mouseevent) is in the specification, for instance
+
+
+### Custom events
+
+For our own, custom events like "hello" we should use new CustomEvent . Technically [CustomEvent   ](https://dom.spec.whatwg.org/#customevent)is the same as Event , with one exception.
+
+In the second argument (object) we can add an additional property detail for any custom information that we want to pass with the event.
+
+```javascript
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Event</title>
+  </head>
+  <body>
+    <h1 id="elem">Hello for John!</h1>
+    <script>
+      // additional details come with the event to the handler
+      elem.addEventListener("hello", function (event) {
+        alert(event.detail.name);
+      });
+      elem.dispatchEvent(
+        new CustomEvent("hello", {
+          detail: { name: "John" },
+        })
+      );
+    </script>
+  </body>
+</html>
+
+```
+
+The detail property can have any data. Technically we could live without, because we can assign any properties into a regular new Event object after its
+creation. But CustomEvent provides the special detail field for it to evade conflicts with other event properties
+
+
+**event.preventDefault()**
+
+We can call event.preventDefault() on a script-generated event if cancelable:true flag is specified.
+
+Of course, if the event has a non-standard name, then it’s not known to the browser, and there’s no “default browser action” for it.
+
+But the event-generating code may plan some actions after dispatchEvent .
+
+The call of event.preventDefault() is a way for the handler to send a signal that those actions shouldn’t be performed.
+
+In that case the call to elem.dispatchEvent(event) returns false . And the event-generating code knows that the processing shouldn’t continue.

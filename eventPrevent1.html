@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <pre id="rabbit">
+        |\ /|
+        \|_|/
+        /. .\
+        =\_Y_/=
+        {>o<}
+        </pre>
+        <script>
+        // hide() will be called automatically in 2 seconds
+        function hide() {
+        let event = new CustomEvent("hide", {
+        cancelable: true // without that flag preventDefault doesn't work
+        });
+        if (!rabbit.dispatchEvent(event)) {
+        alert('the action was prevented by a handler');
+        } else {
+        rabbit.hidden = true;
+        }
+        }
+        rabbit.addEventListener('hide', function(event) {
+        if (confirm("Call preventDefault?")) {
+        event.preventDefault();
+        }
+        });
+        // hide in 2 seconds
+        setTimeout(hide, 2000);
+        </script>
+</body>
+</html>
