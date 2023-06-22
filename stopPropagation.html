@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>stopPropagation</title>
+  </head>
+  <body>
+    <p>Right-click for the document menu</p>
+    <button id="elem">
+      Right-click for the button menu (fixed with event.stopPropagat)
+    </button>
+
+    <script>
+      elem.oncontextmenu = function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        alert("Button context menu");
+      };
+      document.oncontextmenu = function (event) {
+        event.preventDefault();
+        alert("Document context menu");
+      };
+    </script>
+  </body>
+</html>
