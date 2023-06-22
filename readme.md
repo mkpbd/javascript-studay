@@ -831,3 +831,47 @@ alert("Document context menu");
 };
 </script>
 ```
+
+**event.stopPropagation() and event.preventDefault()**
+
+As we can clearly see, **event.stopPropagation() and event.preventDefault()** (also known as return false ) are two different things. They are not related to each other.
+
+## Dispatching custom events
+
+We can not only assign handlers, but also generate events from JavaScript.
+
+Custom events can be used to create “graphical components”. For instance, a root element of the menu may trigger events telling what happens with the menu:  open (menu open), select (an item is selected) and so on.
+
+**Event constructor**
+
+Events form a hierarchy, just like DOM element classes. The root is the built-in [Event  ](www.w3.org/TR/dom/#event)class.
+
+```html
+let event = new Event(event type[, options]);
+```
+
+Arguments:
+
+    event type – may be any string, like "click" or our own like "hey-ho!" .
+
+  options – the object with two optional properties:
+
+    bubbles: true/false – if true , then the event bubbles.
+
+    cancelable: true/false – if true , then the “default action” may be prevented. Later we’ll see what it means for custom events.
+
+By default both are false: {bubbles: false, cancelable: false
+
+**dispatchEvent**
+
+After an event object is created, we should “run” it on an element using the call **elem.dispatchEvent(event)**
+
+Then handlers react on it as if it were a regular built-in event. If the event was created with the bubbles flag, then it bubbles.
+
+```html
+<button id="elem" onclick="alert('Click!');">Autoclick</button>
+<script>
+let event = new Event("click");
+elem.dispatchEvent(event);
+</script>
+```
