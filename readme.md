@@ -40,3 +40,11 @@ Modifiers: shift, alt, ctrl and meta
 All mouse events include the information about pressed modifier keys.
 
 shiftKey 	altKey      ctrlKey
+
+
+**Coordinates: clientX/Y, pageX/Y**
+
+All mouse events have coordinates in two flavours:
+
+1. Window-relative: clientX and clientY .
+2. Document-relative: pageX and pageY .
