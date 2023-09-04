@@ -114,3 +114,5 @@ let num = 255;
 alert( num.toString(16) );  // ff
 alert( num.toString(2) );   // 11111111
 ```
+
+## [Tests: isFinite and isNaN](https://javascript.info/number#tests-isfinite-and-isnan)
