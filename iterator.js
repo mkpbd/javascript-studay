@@ -105,7 +105,7 @@ secondNumber[Symbol.iterator] = function () {
 
   return {
     next() {
-       debugger;
+      // debugger;
        currentNumber = currentNumber + stepNumber;
       let done = false;
 
@@ -122,6 +122,10 @@ secondNumber[Symbol.iterator] = function () {
 
 
 
+
+
+
+
 while(true){
 
    let numbers = secondNumber[Symbol.iterator]();
@@ -129,3 +133,77 @@ while(true){
 
    if(numbers.next().done == true) break;
 }
+
+
+
+
+const Iterable = {
+  [Symbol.iterator]() {
+      let step = 0;
+      const iterator = {
+          next() {
+              step++;
+              if (step === 1)
+                  return { value: 'Example', done: 'false' }
+              else if (step === 2)
+                  return { value: 'for', done: 'false' }
+              else if (step === 3)
+                  return { value: 'Iterator', done: 'false' }
+              return { value: undefined, done: 'true' }
+          }
+      };
+      return iterator;
+  }
+}
+var iterator = Iterable[Symbol.iterator]();
+console.log(iterator.next()) // {value: 'Example', done: 'false'}
+console.log(iterator.next() )// {value: 'for', done: 'false'}
+console.log(iterator.next() )// {value: 'iterator', done: 'false'}
+console.log(iterator.next()) // {value: undefined, done: 'false'}
+
+
+const favourtieMovies = [
+  'Harry Potter',
+  'Lord of the Rings',
+  'Rush Hour', 
+  'Interstellar',
+  'Evolution',
+];
+
+
+const moveIterators = favourtieMovies[Symbol.iterator]();
+
+console.log(moveIterators.next())
+console.log(moveIterators.next())
+console.log(moveIterators.next())
+console.log(moveIterators.next())
+console.log(moveIterators.next())
+console.log(moveIterators.next())
+
+
+const favouriteMoviesObject = {
+  a: 'Harry Potter',
+  b: 'Lord of the Rings',
+  c: 'Rush Hour',
+  d: 'Evolution',
+  e: 'Interstellar',
+}
+
+
+
+favouriteMoviesObject[Symbol.iterator] = function() {
+  const ordered = Object.values(this).sort((a, b) => a - b);
+  let i = 0;
+  return {
+    next: () => ({
+      done: i >= ordered.length,
+      value: ordered[i++]
+    })
+  }
+}
+
+for (const v of favouriteMoviesObject) {
+  console.log(v);
+}
+
+// prints 'Harry Potter', 'Lord of the Rings', 'Rush Hour', 'Evolution', 'Interstellar'
