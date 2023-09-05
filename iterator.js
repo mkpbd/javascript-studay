@@ -120,12 +120,6 @@ secondNumber[Symbol.iterator] = function () {
 
 
 
-
-
-
-
-
-
 while(true){
 
    let numbers = secondNumber[Symbol.iterator]();
@@ -133,7 +127,6 @@ while(true){
 
    if(numbers.next().done == true) break;
 }
-
 
 
 
@@ -172,7 +165,6 @@ const favourtieMovies = [
 
 
 const moveIterators = favourtieMovies[Symbol.iterator]();
-
 console.log(moveIterators.next())
 console.log(moveIterators.next())
 console.log(moveIterators.next())
@@ -207,3 +199,36 @@ for (const v of favouriteMoviesObject) {
 }
 
 // prints 'Harry Potter', 'Lord of the Rings', 'Rush Hour', 'Evolution', 'Interstellar'
+
+
+
+const book = [ 'quarn', 'hadith','fiqa', 'others'];
+
+// for(let i =0; i<book.length; i++) {
+
+//   console.log(book[i]);
+// }
+
+
+const bookIterator = book[Symbol.iterator]();
+
+// console.log(bookIterator.next().value);
+
+// console.log('we have some working ');
+// console.log('we have some working ');
+// console.log('we have some working 2');
+
+// console.log(bookIterator.next().value);
+
+let indexMyIterator = 0;
+function makeMyOwnInteror(){
+
+  return book[indexMyIterator++];
+
+}
+
+console.log(makeMyOwnInteror())
+console.log('hello ')
+console.log(makeMyOwnInteror())
+
+
