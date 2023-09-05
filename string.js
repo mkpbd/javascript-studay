@@ -31,3 +31,29 @@ alert( str.at(0) ); // H
 // the last character
 alert( str[str.length - 1] ); // o
 alert( str.at(-1) );
+
+
+
+
+
+function ucFirst(str){
+
+   let rr =  str[0].toUpperCase() + str.slice(1);
+
+   return rr
+    
+
+
+}
+
+
+function checkSpam(str){
+
+    let lower = str.toUpperCase();
+
+    let viagra =  lower.includes('viagra');
+    let xxx = lower.includes('XXX'.toLowerCase());
+
+    return viagra || xxx;
+
+}
