@@ -21,7 +21,6 @@ let john = {
 john.sayHi(); // Hi buddy!
 ```
 
-
 ## [A primitive as an object](https://javascript.info/primitives-methods#a-primitive-as-an-object)
 
 Here's the paradox faced by the creator of JavaScript:
@@ -41,7 +40,6 @@ The “object wrappers” are different for each primitive type and are called: 
 let str = "Hello";
 alert( str.toUpperCase() ); // HELLO
 ```
-
 
  Constructors `String/Number/Boolean` are for internal use only
 
@@ -89,7 +87,6 @@ let billion = 1e9;  // 1 billion, literally: 1 and 9 zeroes
 alert( 7.3e9 );  // 7.3 billions (same as 7300000000 or 7_300_000_000)
 ```
 
-
 ### [Hex, binary and octal numbers](https://javascript.info/number#hex-binary-and-octal-numbers)
 
 ```javascript
@@ -115,4 +112,41 @@ alert( num.toString(16) );  // ff
 alert( num.toString(2) );   // 11111111
 ```
 
-## [Tests: isFinite and isNaN](https://javascript.info/number#tests-isfinite-and-isnan)
+# Strings
+
+```javascript
+let single = 'single-quoted';
+let double = "double-quoted";
+let backticks = `backticks`;
+```
+
+```javascript
+let guestList = `Guests:
+ * John
+ * Pete
+ * Mary
+`;
+
+alert(guestList); // a list of guests, multiple lines
+```
+
+## [Special characters](https://javascript.info/string#special-characters)
+
+```javascript
+let str1 = "Hello\nWorld"; // two lines using a "newline symbol"
+
+// two lines using a normal newline and backticks
+let str2 = `Hello
+World`;
+
+alert(str1 == str2); // true
+```
+
+| Character              | Description                                                                                                                                                                                                      |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `\n`                 | New line                                                                                                                                                                                                         |
+| `\r`                 | In Windows text files a combination of two characters `\r\n` represents a new break, while on non-Windows OS it’s just `\n`. That’s for historical reasons, most Windows software also understands `\n`. |
+| `\'`,`\"`,`\``     | Quotes                                                                                                                                                                                                           |
+| `\\`                 | Backslash                                                                                                                                                                                                        |
+| `\t`                 | Tab                                                                                                                                                                                                              |
+| `\b`, `\f`, `\v` | Backspace, Form Feed, Vertical Tab – mentioned for completeness, coming from old times, not used nowadays (you can forget them right now).                                                                      |
