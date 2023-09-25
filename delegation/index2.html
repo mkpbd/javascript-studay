@@ -15,37 +15,15 @@
             <li class="item-list">item-5</li>
             <li class="item-list">item-6</li>
         </ul>
-
-       <input type="text" id="add-item">
-       <button id="add">Add</button>
     </section>
 
     <script>
 
-        // old way  
+        // delegate  way  
 
         const items = document.getElementsByClassName('item-list');
-
-        // for(let item of items){
-        //     item.addEventListener('click', function(e){
-        //         console.log(e.target);
-        //     })
-        // }
-
-        const addItem = document.getElementById('add-item');
         const parentItem = document.getElementById('container-list')
-        document.getElementById('add').addEventListener('click', function(e){
 
-            // abab kab korle arbitore joto  event ase ta kaj korbe na 
-
-            // tar jo
-            const li = document.createElement('li');
-            li.className = 'item-list';
-
-            li.innerText = addItem.value;
-            parentItem.appendChild(li);
-            
-        })
 
 
 // delegate 
@@ -56,7 +34,29 @@
 parentItem.addEventListener('click', function(ev){
 
     console.log(ev.target);
-    ev.target.parentNode.removeChild(ev.target);
+    // console.log(ev.target.classList.contains('add-child'))
+    if(ev.target.classList.contains('add-child')){
+       console.log(ev.target.parentNode);
+       let val = ev.target.parentNode;
+        // ev.target.parentNode.parentElement.insertAdjacentHTML('beforeend','ev.target.parentElement');
+        // ev.target.parentNode.parentNode.insertAdjacentElement('beforeend',`<li> afdfad</li>`);
+     //   let li = document.createElement('li');
+        // if i am  add this 
+       var re =   ev.target.parentNode.cloneNode(true);
+       parentItem.append(re)
+       // parentItem.insertAdjacentElement('beforeend',li)
+    
+    }
+
+
+    // remove item 
+
+    if(ev.target.classList.contains('remove-child')){
+
+        ev.target.parentNode.parentNode.removeChild(ev.target.parentNode);
+    }
+
+   
 })
 
 
