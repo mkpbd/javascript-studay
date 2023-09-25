@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event bubbling stopPropagation </title>
+</head>
+
+<body>
+
+    <section id="section">
+        <h4>bubble vai list</h4>
+        <ul id="list-container">
+            <li class="item">list-1</li>
+            <li id="second-item" class="item">list-2</li>
+            <li class="item">list-3</li>
+            <li class="item">list-4</li>
+            <li class="item">list-5</li>
+            <li class="item">list-6</li>
+        </ul>
+    </section>
+
+    <script>
+
+        document.getElementById("second-item").addEventListener("click", function (event) {
+            //event bubble up kore  baki doto evnt  show korbe 
+            /*
+                <li> Second List item clicked   
+                
+            */
+            console.log(" <li> Second List item clicked   ");
+            event.stopPropagation();
+
+        });
+
+        document.getElementById("list-container").addEventListener("click", function (event) {
+
+            /**
+             *  <ul>  clicked
+             *  section clicked
+             */
+            console.log(" <ul>  clicked")
+        });
+
+        document.getElementById("section").addEventListener("click", function (event) {
+            /*
+             section clicked
+            */
+            console.log(" section clicked")
+        });
+
+    </script>
+</body>
+
+</html>

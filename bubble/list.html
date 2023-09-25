@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create list using bubbling</title>
+</head>
+
+<body>
+
+    <section id="section">
+        <h4>Crate list using event bubbling </h4>
+        <ul id="container-list">
+            <li class="list-item">list-item-1</li>
+            <li class="list-item">list-item-2</li>
+            <li class="list-item">list-item-3</li>
+            <li class="list-item">list-item-4</li>
+            <li class="list-item">list-item-5</li>
+            <li class="list-item">list-item-6</li>
+            <li class="list-item">list-item-7</li>
+        </ul>
+        <input type="text" id="list-name">
+        <button id="add-list">Add list</button>
+    </section>
+
+    <script>
+
+        const ulParent = document.getElementById("container-list");
+        const listItem = document.getElementsByClassName('list-item');
+
+        document.getElementById("add-list").addEventListener("click", function (e) {
+
+            console.log(e.target);
+            e.preventDefault();
+            let val = document.getElementById("list-name");
+            console.log(ulParent)
+            const liValue = ` <li class="list-item">${val.value}</li>`
+            const li = document.createElement("li");
+            // li.innerHTML = liValue
+
+            // ulParent.appendChild(li);
+            ulParent.insertAdjacentHTML('beforeend', liValue)
+
+            val.value = '';
+
+
+        });
+
+    </script>
+
+</body>
+
+</html>
